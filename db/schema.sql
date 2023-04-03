@@ -1,9 +1,11 @@
 CREATE DATABASE servo;
 
-CREATE TABLE petrolStations (
+CREATE TABLE stations (
     id SERIAL PRIMARY KEY,
-    name TEXT,
-    address TEXT,
-    lat BOOL,
-    long BOOL
+    NAME TEXT,
+    ADDRESS VARCHAR(255),
+    SUBURB VARCHAR(255),
+    STATE VARCHAR(255),
+    LATITUDE DOUBLE PRECISION,
+    LONGITUDE DOUBLE PRECISION
 );
