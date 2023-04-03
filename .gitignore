@@ -6,3 +6,4 @@ config/index.js
 .swp
 .env
 tmp
+config
