@@ -14,7 +14,6 @@ app.use(require('./middlewares/method_override'))
 app.use(express.json()) // json
 
 app.get('/', (req, res) => {
-	// console.log(config.googleApiKey)
 	res.render('index', { googleApiKey: config.googleApiKey })
 })
 
