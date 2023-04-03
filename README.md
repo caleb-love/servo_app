@@ -10,3 +10,7 @@ Be amazed by this never seen before app. FuelCheck wishes it was us, but will ne
 - ### Nikki 
 
 The accuracy of this app is phenomenal. You will never have to worry about any surprises in fuel prices before going to fill up. 
+
+- ### Mohammed 
+
+The app is decent so far
