@@ -15,18 +15,55 @@
 					<h1>spotlight</h1>
 					<a href="">refresh</a>
 				</section>
-				<section>
+				<section class="stats-section">
 					<h1>Stats</h1>
-					<p>total station:</p>
+					<p>total stations: 4000</p>
 					<p>total owners:</p>
-					<ul>
-						<li>Caltex</li>
-						<li>BP</li>
-						<li>Shell</li>
-						<li>7-Eleven Pty Ltd</li>
-						<li>Indepedent Fuel Supplies</li>
+					<ul class="stats-list">
+					  <li>
+						<div class="station-item">
+						  <span>Caltex</span>
+						  <span>1502</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>BP</span>
+						  <span>1230</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>Shell</span>
+						  <span>838</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>7-Eleven Pty Ltd</span>
+						  <span>742</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>Independent Fuel Supplies</span>
+						  <span>386</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>United</span>
+						  <span>216</span>
+						</div>
+					  </li>
+					  <li>
+						<div class="station-item">
+						  <span>Ampol</span>
+						  <span>86</span>
+						</div>
+					  </li>
 					</ul>
-				</section>
+				  </section>
 				<section>
 					<h1>latest prices</h1>
 					<p>add current date here</p>
@@ -47,12 +84,12 @@
 				<h1>map</h1>
 			</main>
 			<aside class="right-sidebar">
-				<section>Weds 15:56:33 pm</section>
+				<section class="clock">  </section>
 				<section>
 					<h1>map center location</h1>
 				</section>
-				<section>
-					<h1>nearest</h1>
+				<section id="petrol-stations-list">
+					<h1>Nearest Petrol Stations</h1>
 				</section>
 			</aside>
 		</div>
@@ -62,5 +99,7 @@
 			defer
 		></script>
 		<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+        <script src="/components/clock.js"> </script>
 	</body>
 </html>
