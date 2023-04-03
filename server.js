@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/station/all', (req, res ) => {
 	
-	const sql = "select * from stations limit 10;"
+	const sql = "select * from stations limit 400;"
 	return db.query(sql)
 	.then( dbRes => {
 		

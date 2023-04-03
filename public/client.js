@@ -1,56 +1,36 @@
-let spots = [
-	{ name: 'General Assembly', location: { lat: -33.8712, lng: 151.2046 } },
-	{
-		name: 'Sydney Harbour Bridge',
-		location: { lat: -33.8523, lng: 151.2108 },
-	},
-	{
-		name: 'Queen Victoria Building',
-		location: { lat: -33.8717, lng: 151.2067 },
-	},
-	{ name: 'Central Station', location: { lat: -33.8832, lng: 151.207 } },
-	{ name: 'Chinatown', location: { lat: -33.879, lng: 151.2043 } },
-	{ name: 'Sydney Opera House', location: { lat: -33.8568, lng: 151.2153 } },
-	{
-		name: 'Sea Life Sydney Aquarium',
-		location: { lat: -33.8696, lng: 151.2021 },
-	},
-]
-
-function initMap() {
+function initMap(stations) {
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
         minZoom: 10,
-		center: spots[0].location,
+		center: { lat: -33.8712, lng: 151.2046 }, // set to GA location for now
 	})
 	const infoWindow = new google.maps.InfoWindow({
 		content: '',
 		disableAutoPan: true,
 	})
-	// Create an array of alphabetical characters used to label the markers.
+
 	const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-	// Add some markers to the map.
-	const markers = locations.map((position, i) => {
+    // * change marker to have image icon https://developers.google.com/maps/documentation/javascript/examples/icon-simple
+
+	const markers = stations.map((station, i) => {
 		const label = labels[i % labels.length]
 		const marker = new google.maps.Marker({
-			position,
+			position: { lat: station.latitude, lng: station.longitude },
 			label,
 		})
 
-		// markers can only be keyboard focusable when they have click listeners
-		// open info window when marker is clicked
 		marker.addListener('click', () => {
-			infoWindow.setContent(spots[i].name)
+			infoWindow.setContent(`<strong>$\qstations[i].name}</strong><br/>${stations[i].address}`)
 			infoWindow.open(map, marker)
 		})
 		return marker
 	})
 
-	// Add a marker clusterer to manage the markers.
-	new markerClusterer.MarkerClusterer({ markers, map }) // using cdn
-	// markerCluster
+	new markerClusterer.MarkerClusterer({ markers, map })
 }
 
-const locations = spots.map((spot) => spot.location)
+function fetchStations() {
+    return axios.get("/api/station/all").then(res => res.data) 
+}
 
-window.initMap = initMap
+fetchStations().then(window.initMap = initMap)
