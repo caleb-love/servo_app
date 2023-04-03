@@ -19,7 +19,8 @@ let spots = [
 
 function initMap() {
 	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 14,
+		zoom: 13,
+        minZoom: 10,
 		center: spots[0].location,
 	})
 	const infoWindow = new google.maps.InfoWindow({
