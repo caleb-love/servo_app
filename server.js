@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(require("./middlewares/method_override"))
 
 app.get("/", (req, res) => {
-  res.render("home")
+  console.log(config.googleApiKey)
+  res.render("index", { googleApiKey: config.googleApiKey })
 })
 
 app.listen(config.port, () => {
