@@ -1,13 +1,13 @@
 * {
-    /* border: 1px solid red; */
+	/* border: 1px solid red; */
 }
 
 .content-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	height: 100vh;
 }
 
 #map {
-    height: 100%;
-  }
+	height: 100%;
+}
