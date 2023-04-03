@@ -1,6 +1,6 @@
 require("dotenv").config()
 
-let missing = ["PORT", "DATABASE_URL"].filter(
+let missing = ["PORT", "DATABASE_URL", "GOOGLE_API_KEY"].filter(
   key => process.env[key] === undefined
 )
 
@@ -13,4 +13,5 @@ module.exports = {
   db: {
     connectionString: process.env.DATABASE_URL,
   },
+  googleApiKey: process.env.GOOGLE_API_KEY
 }
