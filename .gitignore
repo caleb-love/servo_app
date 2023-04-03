@@ -2,6 +2,7 @@
 *.log
 *.sqlite
 node_modules
+config/index.js
 .swp
 .env
 tmp
