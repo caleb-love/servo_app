@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-console.log('browser console.log')
-=======
 let spots = [
     {name: "General Assembly", location: {lat: -33.8712, lng: 151.2046}},
     {name: "Sydney Harbour Bridge", location: {lat: -33.8523, lng: 151.2108}},
