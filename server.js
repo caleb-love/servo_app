@@ -11,24 +11,34 @@ app.use(expressLayouts)
 app.use(express.urlencoded({ extended: true }))
 
 app.use(require('./middlewares/method_override'))
-app.use(express.json()) // json
+app.use(express.json()) // json for body maybe not required ??
+const Station = require('./models/stations')
 
 app.get('/', (req, res) => {
-	console.log(config.googleApiKey)
-	res.render('index', { googleApiKey: config.googleApiKey })
+		res.render('index', { googleApiKey: config.googleApiKey })
 })
 
-app.get('/api/station/all', (req, res ) => {
+app.get('/api/station/all', (req , res) => {
+	Station.findAll()
+	.then(dbRes => res.json(dbRes))
+})
+
+
+app.get('/api/owners', (req ,res) => {
+	Station.total_stations()
+	.then( owners => res.json(owners))
+})
+
+app.get('/api/stats', (req, res ) => {
+	Station.stats()
+	.then( stats => res.json(stats))
+})
+
+app.get('/api/station/random', (req, res ) => {
+	Station.random_station()
+	.then(random => res.json(random))
+	})
 	
-	const sql = "select * from stations limit 10;"
-	return db.query(sql)
-	.then( dbRes => {
-		
-		res.json(dbRes.rows)})
-
-})
-
-
 
 app.listen(config.port, () => {
 	console.log(`listening on port ${config.port}`)
