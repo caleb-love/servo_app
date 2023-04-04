@@ -9,11 +9,6 @@ function initMap(stations) {
 		disableAutoPan: true,
 	})
 
-    const hoverWindow = new google.maps.InfoWindow({
-		content: '',
-		disableAutoPan: true,
-	})
-
 	const markers = stations.map((station, i) => {
         const icon = {
             url: station.logo,
@@ -25,21 +20,17 @@ function initMap(stations) {
 		const marker = new google.maps.Marker({
 			position: { lat: station.latitude, lng: station.longitude },
 			icon: icon,
+            label: station.name
 		})
         // ? add station name as label to each marker. That appears when a user hover their mouse on top of the marker
         // marker.addListener('mouseover', () => {
-        //     hoverWindow.setContent(`<p>${stations[i].name}</p>`)
-        //     hoverWindow.open(map, marker)
-        // });
+        //     infoWindow.setContent(`<p>${stations[i].name}</p>`)
+        //     infoWindow.open(map, marker)
+        // })
 
-        marker.addListener('mouseover', () => {
-            infoWindow.setContent(`<p>${stations[i].name}</p>`)
-            infoWindow.open(map, marker)
-        })
-
-        marker.addListener('mouseout', () => {
-            infoWindow.close()
-        })
+        // marker.addListener('mouseout', () => {
+        //     infoWindow.close()
+        // })
 
 		marker.addListener('click', () => {
 			infoWindow.setContent(`<strong>${stations[i].name}</strong><br/>${stations[i].address}`)
