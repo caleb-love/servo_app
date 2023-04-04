@@ -41,7 +41,7 @@ function initMap(stations) {
         // marker.addListener('mouseover', () => {
         //     hoverWindow.setContent(`<p>${stations[i].name}</p>`)
         //     hoverWindow.open(map, marker)
-        // });
+        // })
 		map.addListener('center_changed',() => {
 			lat.textContent = (map.getCenter().toJSON().lat)
 			lng.textContent = (map.getCenter().toJSON().lng)
@@ -72,6 +72,7 @@ function fetchStations() {
 }
 
 fetchStations().then(window.initMap = initMap)
+
 
 async function updatePetrolStationList() {
 
@@ -111,9 +112,8 @@ async function updateCommodityPrices() {
   
 	const date = new Date().toLocaleDateString()
 	dateElement.textContent = `As of ${date}`
-
-	const apiKey = 'insert api key'
-	
+  
+	const apiKey = 'input api key'
   
 	try {
 	  const response = await fetch(
@@ -126,18 +126,21 @@ async function updateCommodityPrices() {
   
 	  const data = await response.json()
   
-	  const wtiPrice = data.data.rates.WTIOIL.toFixed(2)
-	  wtiPriceElement.textContent = `$${wtiPrice}`
+	  const wtiPrice = (1 / data.data.rates.WTIOIL).toFixed(2)
+	  wtiPriceElement.textContent = `$${wtiPrice} per barrel (USD)`
   
-	  const brentPrice = data.data.rates.BRENTOIL.toFixed(2)
-	  brentPriceElement.textContent = `$${brentPrice}`
+	  const brentPrice = (1 / data.data.rates.BRENTOIL).toFixed(2)
+	  brentPriceElement.textContent = `$${brentPrice} per barrel (USD)`
   
-	  const natgasPrice = data.data.rates.NG.toFixed(2)
-	  natgasPriceElement.textContent = `$${natgasPrice}`
+	  const natgasPrice = (1 / data.data.rates.NG).toFixed(2)
+	  natgasPriceElement.textContent = `$${natgasPrice} per MMBtu (USD)`
+
 	} catch (error) {
 	  console.error(error)
 	}
 
-}
-
+  }
+  
 updateCommodityPrices()
+  
+  
