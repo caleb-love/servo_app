@@ -50,16 +50,14 @@ function initMap(stations) {
 			position: { lat: station.latitude, lng: station.longitude },
 			icon: icon,
 		})
-		// ? add station name as label to each marker. That appears when a user hover their mouse on top of the marker
 
-		// marker.addListener('mouseover', () => {
-		//     infoWindow.setContent(`<p>${stations[i].name}</p>`)
-		//     infoWindow.open(map, marker)
-		// })
+		marker.addListener('mouseover', () => {
+			marker.setLabel(stations[i].name)
+		})
 
-		// marker.addListener('mouseout', () => {
-		//     infoWindow.close()
-		// })
+		marker.addListener('mouseout', () => {
+		    marker.setLabel(null)
+		})
 
 		map.addListener('center_changed', () => {
 			lat.textContent = map.getCenter().toJSON().lat
