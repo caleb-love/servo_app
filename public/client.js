@@ -1,4 +1,10 @@
-function initMap(stations) {
+import { fetchStations, fetchStationsInBound } from "./servo_api.js"
+
+let map 
+
+async function initMap() {
+	const { Map } = await google.maps.importLibrary("maps")
+
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition((position) => {
 			const lat = position.coords.latitude
@@ -23,8 +29,8 @@ function initMap(stations) {
 					locElement.textContent = 'Geocoder failed due to: ' + status
 				}
 			})
-
-			const map = new google.maps.Map(document.getElementById('map'), {
+			
+			map = new Map(document.getElementById('map'), {
 				zoom: 13,
 				minZoom: 10,
 				center: { lat, lng },
@@ -44,32 +50,6 @@ function initMap(stations) {
 				infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
 				infoWindow.open(map, currentLocationMarker)
 			})
-
-			const markers = stations.map((station) => {
-				const icon = {
-					url: station.logo,
-					scaledSize: new google.maps.Size(50, 50),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(0, 0),
-				}
-
-				const marker = new google.maps.Marker({
-					position: { lat: station.latitude, lng: station.longitude },
-					icon,
-					label: { text: station.name, fontWeight: 'bold' },
-				})
-
-				marker.addListener('click', () => {
-					infoWindow.setContent(
-						`<strong>${station.name}</strong><br/>${station.address}`
-					)
-					infoWindow.open(map, marker)
-				})
-
-				return marker
-			})
-
-			new markerClusterer.MarkerClusterer({ markers, map })
 
 			map.addListener('center_changed', () => {
 				const { lat, lng } = map.getCenter().toJSON()
@@ -92,6 +72,41 @@ function initMap(stations) {
 						}
 					}
 				)
+
+			})
+
+			map.addListener("bounds_changed", () => {
+				const northEast = map.getBounds().getNorthEast()
+				const southWest = map.getBounds().getSouthWest()
+				const southLat = southWest.lat()
+				const northLat = northEast.lat()
+				const westLng = southWest.lng()
+				const eastLng = northEast.lng()
+
+				fetchStationsInBound(southLat, northLat, westLng, eastLng)
+					.then(res => res.forEach((station) => {
+						const icon = {
+							url: station.logo,
+							scaledSize: new google.maps.Size(50, 50),
+							origin: new google.maps.Point(0, 0),
+							anchor: new google.maps.Point(0, 0),
+						}
+		
+						const marker = new google.maps.Marker({
+							position: { lat: Number(station.latitude), lng: Number(station.longitude) },
+							map,
+							icon,
+							label: { text: station.name, fontWeight: 'bold' },
+						})
+		
+						marker.addListener('click', () => {
+							infoWindow.setContent(
+								`<strong>${station.name}</strong><br/>${station.address}`
+							)
+							infoWindow.open(map, marker)
+						})
+				}))
+
 			})
 
 			const backButton = document.createElement('button')
@@ -111,11 +126,8 @@ function initMap(stations) {
 	}
 }
 
-function fetchStations() {
-	return axios.get('/api/station/all').then((res) => res.data)
-}
-
-fetchStations().then((window.initMap = initMap))
+initMap()
+// fetchStations().then((window.initMap = initMap))
 
 async function updatePetrolStationList() {
 	try {
