@@ -130,5 +130,16 @@ async function updateCommodityPrices() {
   }
   
 updateCommodityPrices()
-  
-  
+
+const leftSidebar = document.querySelector('.left-sidebar')
+const rightSidebar = document.querySelector('.right-sidebar')
+const contentWrapper = document.querySelector('.content-wrapper')
+
+document.addEventListener('keyup', doc_keyUp, false);
+function doc_keyUp(e) {
+	if (e.ctrlKey && e.keyCode == 66) {
+		leftSidebar.classList.toggle('none')
+		rightSidebar.classList.toggle('none')
+		contentWrapper.classList.toggle('full-screen')
+	}
+}
