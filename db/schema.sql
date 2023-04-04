@@ -38,3 +38,21 @@ DROP COLUMN INDUSTRYID,
 DROP COLUMN SPATIALCONFIDENCE,
 DROP COLUMN REVISED,
 DROP COLUMN COMMENT;
+
+ALTER TABLE stations
+ADD logo TEXT DEFAULT '/images/petrol.png';
+
+UPDATE stations 
+SET logo = '/images/BP.png' WHERE owner = 'BP';
+
+UPDATE stations 
+SET logo = '/images/Caltex.png' WHERE owner = 'Caltex';
+
+UPDATE stations 
+SET logo = '/images/Shell.png' WHERE owner = 'Shell';
+
+UPDATE stations 
+SET logo = '/images/7Eleven.png' WHERE owner = '7-Eleven Pty Ltd';
+
+UPDATE stations 
+SET logo = '/images/United.jpg' WHERE owner = 'United';
