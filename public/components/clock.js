@@ -4,7 +4,7 @@ function updateClock() {
 	const day = now.format('dddd')
 	const time = now.format('HH:mm:ss')
 
-	const clockElement = document.querySelector('.clock')
+	const clockElement = document.querySelector('.time')
 	clockElement.textContent = `${day} ${time}`
 }
 
