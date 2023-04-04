@@ -55,7 +55,15 @@ function initMap(stations) {
 	})
 
 	new markerClusterer.MarkerClusterer({ markers, map })
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+		  (position) => {
+			const userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+			map.setCenter(userLocation)
+		  })
 }
+
 
 function fetchStations() {
     return axios.get("/api/station/all").then(res => res.data) 
