@@ -31,6 +31,7 @@ function initMap(stations) {
         //     hoverWindow.setContent(`<p>${stations[i].name}</p>`)
         //     hoverWindow.open(map, marker)
         // });
+		map.addListener('center_changed',() => console.log(map.getCenter().toJSON()))
 
         marker.addListener('mouseover', () => {
             infoWindow.setContent(`<p>${stations[i].name}</p>`)
