@@ -9,15 +9,28 @@ function initMap(stations) {
 		disableAutoPan: true,
 	})
 
-	const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    // * change marker to have image icon https://developers.google.com/maps/documentation/javascript/examples/icon-simple
+    const hoverWindow = new google.maps.InfoWindow({
+		content: '',
+		disableAutoPan: true,
+	})
 
 	const markers = stations.map((station, i) => {
-		const label = labels[i % labels.length]
+        const icon = {
+            url: station.logo,
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0), 
+            anchor: new google.maps.Point(0, 0) 
+        }
+        
 		const marker = new google.maps.Marker({
 			position: { lat: station.latitude, lng: station.longitude },
-			label,
+			icon: icon,
 		})
+        // ? add station name as label to each marker. That appears when a user hover their mouse on top of the marker
+        // marker.addListener('mouseover', () => {
+        //     hoverWindow.setContent(`<p>${stations[i].name}</p>`)
+        //     hoverWindow.open(map, marker)
+        // });
 
         marker.addListener('mouseover', () => {
             infoWindow.setContent(`<p>${stations[i].name}</p>`)
