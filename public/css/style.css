@@ -14,13 +14,38 @@
 	height: 100%;
 }
 
-.stats-section {
+.spotlight-section {
+	padding: 0 5px 40px 5px;
 	border: 3px solid black;
-	padding: 0 5px 0 5px;
-	background-color: rgb(250, 225, 194);
-	margin-top: 5px;
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	background-color: #ffe4e1;
+	margin: 0;
 }
 
+.spotlight-section img {
+	height: 60px;
+	display: block;
+	padding-top: 32px;
+}
+
+
+
+
+
+
+
+/* --------------------- Stats section */
+.stats-section {
+	border: 3px solid black;
+	padding: 10px 5px 40px 5px;
+	background-color: #fff0d5;
+	/* margin-top: 5px; */
+	
+}
+.stats-section h3, .stats-section h2{
+	margin: 3px 0;
+}
 .latest-section {
 	border: 3px solid black;
 	padding: 0 5px 0 5px;
@@ -30,7 +55,8 @@
 
 .stats-list {
 	list-style: none;
-	padding-left: 0;	
+	padding-left: 0;
+	line-height: 27px;
 }
 
 .station-item {
