@@ -4,7 +4,7 @@ const lng = document.querySelector('.lng')
 function initMap(stations) {
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
-        minZoom: 10,
+		minZoom: 10,
 		center: { lat: -33.8712, lng: 151.2046 }, // set to GA location for now
 	})
 	const infoWindow = new google.maps.InfoWindow({
@@ -48,7 +48,9 @@ function initMap(stations) {
 		})
 
 		marker.addListener('click', () => {
-			infoWindow.setContent(`<strong>${stations[i].name}</strong><br/>${stations[i].address}`)
+			infoWindow.setContent(
+				`<strong>${stations[i].name}</strong><br/>${stations[i].address}`
+			)
 			infoWindow.open(map, marker)
 		})
 		return marker
@@ -57,57 +59,54 @@ function initMap(stations) {
 	new markerClusterer.MarkerClusterer({ markers, map })
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-		  (position) => {
-			const userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+		navigator.geolocation.getCurrentPosition((position) => {
+			const userLocation = new google.maps.LatLng(
+				position.coords.latitude,
+				position.coords.longitude
+			)
 			map.setCenter(userLocation)
-		  })
+		})
+	}
 }
-
 
 function fetchStations() {
-    return axios.get("/api/station/all").then(res => res.data) 
+	return axios.get('/api/station/all').then((res) => res.data)
 }
 
-fetchStations().then(window.initMap = initMap)
+fetchStations().then((window.initMap = initMap))
 
 
 async function updatePetrolStationList() {
-
 	try {
-	  const response = await axios.get('/api/station/all')
-	  const stations = response.data.slice(0, 10)
-	  const list = document.getElementById('petrol-stations-list')
-  
-	  
-	  list.innerHTML = ''
-  
-	 
-	  stations.forEach(station => {
-		const item = document.createElement('div')
-		item.classList.add('station-item-right')
-		item.innerHTML = `
+		const response = await axios.get('/api/station/all')
+		const stations = response.data.slice(0, 10)
+		const list = document.getElementById('petrol-stations-list')
+
+		list.innerHTML = ''
+
+		stations.forEach((station) => {
+			const item = document.createElement('div')
+			item.classList.add('station-item-right')
+			item.innerHTML = `
 		  <h2>${station.name}</h2>
 		  <p>${station.address}</p>
 		  <p>${station.owner}</p>
 		`
-		list.appendChild(item)
-	  })
+			list.appendChild(item)
+		})
 	} catch (error) {
-	  console.error(error)
+		console.error(error)
 	}
-
 }
 
 updatePetrolStationList()
 
 async function updateCommodityPrices() {
-
 	const dateElement = document.getElementById('current-date')
 	const wtiPriceElement = document.getElementById('wti-price')
 	const brentPriceElement = document.getElementById('brent-price')
 	const natgasPriceElement = document.getElementById('natgas-price')
-  
+
 	const date = new Date().toLocaleDateString()
 	dateElement.textContent = `As of ${date}`
   
