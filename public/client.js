@@ -13,18 +13,16 @@ function initMap(stations) {
 	})
 
 	const markers = stations.map((station, i) => {
-        const icon = {
-            url: station.logo,
-            scaledSize: new google.maps.Size(50, 50),
-            origin: new google.maps.Point(0,0), 
-            anchor: new google.maps.Point(0, 0) 
-        }
-        
+		const icon = {
+			url: station.logo,
+			scaledSize: new google.maps.Size(50, 50),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(0, 0),
+		}
+
 		// function setLatLng(){
-		// 	lat.textContent = 
+		// 	lat.textContent =
 		// }
-
-
 
 		const marker = new google.maps.Marker({
 			position: { lat: station.latitude, lng: station.longitude },
@@ -41,10 +39,9 @@ function initMap(stations) {
         //     infoWindow.close()
         // })
 
-		map.addListener('center_changed',() => {
-			lat.textContent = (map.getCenter().toJSON().lat)
-			lng.textContent = (map.getCenter().toJSON().lng)
-			
+		map.addListener('center_changed', () => {
+			lat.textContent = map.getCenter().toJSON().lat
+			lng.textContent = map.getCenter().toJSON().lng
 		})
 
 		marker.addListener('click', () => {
@@ -59,13 +56,23 @@ function initMap(stations) {
 	new markerClusterer.MarkerClusterer({ markers, map })
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition((position) => {
-			const userLocation = new google.maps.LatLng(
-				position.coords.latitude,
-				position.coords.longitude
-			)
-			map.setCenter(userLocation)
-		})
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				const pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude,
+				}
+				infoWindow.setPosition(pos)
+				infoWindow.setContent('Location found.')
+				infoWindow.open(map)
+				map.setCenter(pos)
+			},
+			(error) => {
+				console.log(`Error getting location: ${error}`)
+			}
+		)
+	} else {
+		console.log('Geolocation is not supported.')
 	}
 }
 
