@@ -19,8 +19,17 @@ function initMap(stations) {
 			label,
 		})
 
+        marker.addListener('mouseover', () => {
+            infoWindow.setContent(`<p>${stations[i].name}</p>`)
+            infoWindow.open(map, marker)
+        });
+
+        marker.addListener('mouseout', () => {
+            infoWindow.close()
+        });
+
 		marker.addListener('click', () => {
-			infoWindow.setContent(`<strong>$\qstations[i].name}</strong><br/>${stations[i].address}`)
+			infoWindow.setContent(`<strong>${stations[i].name}</strong><br/>${stations[i].address}`)
 			infoWindow.open(map, marker)
 		})
 		return marker
