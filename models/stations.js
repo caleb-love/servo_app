@@ -5,8 +5,8 @@ const db =require('../db')
 class Station {
 
     static findAll(){
-        //const sql = "select * from stations limit 400;"
-        const sql = "select * from stations where state = 'New South Wales';"
+        const sql = "select * from stations limit 400;"
+        //const sql = "select * from stations where state = 'New South Wales';"
         return db.query(sql).then(res => res.rows )
     }
 
