@@ -6,3 +6,5 @@ function getRandomStation() {
 			spotlightStation.innerHTML = `<p>Name: ${stations.owner}</p><p>Location: ${stations.address}</p>`
 		})
 }
+
+document.addEventListener('DOMContentLoaded', getRandomStation);
