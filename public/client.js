@@ -1,98 +1,79 @@
-const lat = document.querySelector('.lat')
-const lng = document.querySelector('.lng')
-const mapLoc = document.querySelector('.map-loc')
-
 function initMap(stations) {
-	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 13,
-		minZoom: 10,
-		center: { lat: -33.8712, lng: 151.2046 }, // set to GA location for now
-	})
-	const infoWindow = new google.maps.InfoWindow({
-		content: '',
-		disableAutoPan: true,
-	})
+	if ('geolocation' in navigator) {
+		navigator.geolocation.getCurrentPosition((position) => {
+			const lat = position.coords.latitude
+			const lng = position.coords.longitude
 
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					const pos = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					}
+			const latElement = document.querySelector('.lat')
+			const lngElement = document.querySelector('.lng')
+			latElement.textContent = lat.toFixed(6)
+			lngElement.textContent = lng.toFixed(6)
 
-					infoWindow.setPosition(pos)
-					infoWindow.setContent('Location found.')
-					infoWindow.open(map)
-					map.setCenter(pos)
-				},
-				() => {
-					handleLocationError(true, infoWindow, map.getCenter())
+			const map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 13,
+				minZoom: 10,
+				center: { lat, lng },
+			})
+
+			const infoWindow = new google.maps.InfoWindow({
+				content: '',
+				disableAutoPan: true,
+			})
+
+			const currentLocationMarker = new google.maps.Marker({
+				position: { lat, lng },
+				map: map,
+			})
+
+			currentLocationMarker.addListener('click', () => {
+				infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
+				infoWindow.open(map, currentLocationMarker)
+			})
+
+			const markers = stations.map((station) => {
+				const icon = {
+					url: station.logo,
+					scaledSize: new google.maps.Size(50, 50),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(0, 0),
 				}
-			)
-		} else {
-			handleLocationError(false, infoWindow, map.getCenter())
-		}
 
-	const markers = stations.map((station, i) => {
-		const icon = {
-			url: station.logo,
-			scaledSize: new google.maps.Size(50, 50),
-			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(0, 0),
-		}
+				const marker = new google.maps.Marker({
+					position: { lat: station.latitude, lng: station.longitude },
+					icon,
+					label: { text: station.name, fontWeight: 'bold' },
+				})
 
-		// function setLatLng(){
-		// 	lat.textContent =
-		// }
+				marker.addListener('click', () => {
+					infoWindow.setContent(
+						`<strong>${station.name}</strong><br/>${station.address}`
+					)
+					infoWindow.open(map, marker)
+				})
 
-		const marker = new google.maps.Marker({
-			position: { lat: station.latitude, lng: station.longitude },
-			icon: icon,
+				return marker
+			})
+
+			new markerClusterer.MarkerClusterer({ markers, map })
+
+			map.addListener('center_changed', () => {
+				const { lat, lng } = map.getCenter().toJSON()
+				latElement.textContent = lat.toFixed(6)
+				lngElement.textContent = lng.toFixed(6)
+			})
+
+			const	backButton = document.createElement('button')
+					backButton.textContent = 'Current Location'
+					backButton.classList.add('back-button')
+					map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(backButton)
+
+				backButton.addEventListener('click', () => {
+					map.setCenter({ lat: lat, lng: lng })
+					map.setZoom(13)
+				})
 		})
-
-		marker.addListener('mouseover', () => {
-			marker.setLabel(stations[i].name)
-		})
-
-		marker.addListener('mouseout', () => {
-		    marker.setLabel(null)
-		})
-
-		map.addListener('center_changed', () => {
-			lat.textContent = map.getCenter().toJSON().lat
-			lng.textContent = map.getCenter().toJSON().lng
-		})
-
-		marker.addListener('click', () => {
-			infoWindow.setContent(
-				`<strong>${stations[i].name}</strong><br/>${stations[i].address}`
-			)
-			infoWindow.open(map, marker)
-		})
-		return marker
-	})
-
-	new markerClusterer.MarkerClusterer({ markers, map })
-
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				const pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				}
-				infoWindow.setPosition(pos)
-				infoWindow.setContent('Location found.')
-				infoWindow.open(map)
-				map.setCenter(pos)
-			},
-			(error) => {
-				console.log(`Error getting location: ${error}`)
-			}
-		)
 	} else {
-		console.log('Geolocation is not supported.')
+		alert('Please enable location services to use this feature.')
 	}
 }
 
@@ -166,7 +147,7 @@ const leftSidebar = document.querySelector('.left-sidebar')
 const rightSidebar = document.querySelector('.right-sidebar')
 const contentWrapper = document.querySelector('.content-wrapper')
 
-document.addEventListener('keyup', doc_keyUp, false);
+document.addEventListener('keyup', doc_keyUp, false)
 function doc_keyUp(e) {
 	if (e.ctrlKey && e.keyCode == 66) {
 		leftSidebar.classList.toggle('none')
@@ -174,16 +155,3 @@ function doc_keyUp(e) {
 		contentWrapper.classList.toggle('full-screen')
 	}
 }
-
-// to handle user location error
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-	infoWindow.setPosition(pos)
-	infoWindow.setContent(
-		browserHasGeolocation
-			? 'Error: The Geolocation service failed.'
-			: "Error: Your browser doesn't support geolocation."
-	)
-	infoWindow.open(map)
-}
-
-window.initMap = initMap
