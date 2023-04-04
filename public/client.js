@@ -22,11 +22,11 @@ function initMap(stations) {
         marker.addListener('mouseover', () => {
             infoWindow.setContent(`<p>${stations[i].name}</p>`)
             infoWindow.open(map, marker)
-        });
+        })
 
         marker.addListener('mouseout', () => {
             infoWindow.close()
-        });
+        })
 
 		marker.addListener('click', () => {
 			infoWindow.setContent(`<strong>${stations[i].name}</strong><br/>${stations[i].address}`)
@@ -43,3 +43,33 @@ function fetchStations() {
 }
 
 fetchStations().then(window.initMap = initMap)
+
+async function updatePetrolStationList() {
+
+	try {
+	  const response = await axios.get('/api/station/all')
+	  const stations = response.data.slice(0, 10)
+	  const list = document.getElementById('petrol-stations-list')
+  
+	  
+	  list.innerHTML = ''
+  
+	 
+	  stations.forEach(station => {
+		const item = document.createElement('div')
+		item.classList.add('station-item-right')
+		item.innerHTML = `
+		  <h2>${station.name}</h2>
+		  <p>${station.address}</p>
+		  <p>${station.owner}</p>
+		`
+		list.appendChild(item)
+	  })
+	} catch (error) {
+	  console.error(error)
+	}
+
+}
+
+updatePetrolStationList()
+  
