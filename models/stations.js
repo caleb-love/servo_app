@@ -27,18 +27,18 @@ class Station {
     }
     
     static stats(){
+               
         const sql1 = 'select owner, count(owner) from stations group by owner having count (owner) > 1 order by count desc;'
-	    const sql2 = 'select count(*) from stations;'
-	    const sql3 = 'select count(distinct owner) from stations;'
-	
+	    const sql2 = 'select count(*) as total_stations, count(distinct owner) as total_owners from stations;'
+	    	
 	    let owners = db.query(sql1)
-	    let total_owners = db.query(sql3)
 	    let total_stations = db.query(sql2)
-        return Promise.all([owners , total_owners , total_stations])	
+        return Promise.all([owners , total_stations])	
         .then( dbRes => {
             let owners = dbRes[0].rows
-            let total_owners = dbRes[1].rows[0].count
-            let total_stations = dbRes[2].rows[0].count
+            let total_owners = dbRes[1].rows[0].total_owners
+            let total_stations = dbRes[1].rows[0].total_stations
+            console.log(dbRes[1].rows[0]);
             return {owners , total_owners , total_stations }
     })
     }
