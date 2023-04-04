@@ -5,8 +5,8 @@ const db =require('../db')
 class Station {
 
     static findAll(){
-        //const sql = "select * from stations limit 400;" //meant to be limit 400 temp using 10
-        const sql = "select * from stations limit 400;"
+        //const sql = "select * from stations limit 400;"
+        const sql = "select * from stations where state = 'New South Wales';"
         return db.query(sql).then(res => res.rows )
     }
 
@@ -43,7 +43,6 @@ class Station {
             let owners = dbRes[0].rows
             let total_owners = dbRes[1].rows[0].total_owners
             let total_stations = dbRes[1].rows[0].total_stations
-            console.log(dbRes[1].rows[0]);
             return {owners , total_owners , total_stations }
     })
     }
