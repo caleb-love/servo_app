@@ -35,6 +35,12 @@ app.get('/api/station/random', (req, res) => {
 		.then((random) => res.json(random))
 })
 
+app.get('/api/station/bounds', (req, res) => {
+
+	Station.in_bounds(req.query.south, req.query.north, req.query.west, req.query.east)
+		.then((stations) => res.json(stations))
+})
+
 app.listen(config.port, () => {
 	console.log(`listening on port ${config.port}`)
 })

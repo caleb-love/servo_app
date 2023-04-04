@@ -25,6 +25,11 @@ class Station {
 	    return db.query(sql)
 	    .then( dbRes => dbRes.rows[0] )
     }
+
+    static in_bounds(southLat, northLat, westLng, eastLng) {
+        const sql = 'select * from stations where latitude between $1 and $2 and longitude between $3 and $4;'
+        return db.query(sql, [southLat, northLat, westLng, eastLng]).then(res => res.rows )
+    }
     
     static stats(){
                
