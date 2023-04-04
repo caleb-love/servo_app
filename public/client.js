@@ -1,8 +1,6 @@
 const lat = document.querySelector('.lat')
 const lng = document.querySelector('.lng')
 
-
-
 function initMap(stations) {
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
@@ -33,14 +31,14 @@ function initMap(stations) {
 			icon: icon,
 		})
         // ? add station name as label to each marker. That appears when a user hover their mouse on top of the marker
-        marker.addListener('mouseover', () => {
-            infoWindow.setContent(`<p>${stations[i].name}</p>`)
-            infoWindow.open(map, marker)
-        })
+        // marker.addListener('mouseover', () => {
+        //     infoWindow.setContent(`<p>${stations[i].name}</p>`)
+        //     infoWindow.open(map, marker)
+        // })
 
-        marker.addListener('mouseout', () => {
-            infoWindow.close()
-        })
+        // marker.addListener('mouseout', () => {
+        //     infoWindow.close()
+        // })
 
 		map.addListener('center_changed',() => {
 			lat.textContent = (map.getCenter().toJSON().lat)
