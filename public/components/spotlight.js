@@ -7,4 +7,4 @@ function getRandomStation() {
 		})
 }
 
-document.addEventListener('DOMContentLoaded', getRandomStation);
+document.addEventListener('DOMContentLoaded', getRandomStation)
