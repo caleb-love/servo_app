@@ -7,4 +7,12 @@ function getRandomStation() {
 		})
 }
 
-document.addEventListener('DOMContentLoaded', getRandomStation)
+document.addEventListener('DOMContentLoaded', () => {
+	getRandomStation()
+
+	const refreshLink = document.querySelector('#refresh-link')
+	refreshLink.addEventListener('click', (event) => {
+		event.preventDefault()
+		getRandomStation()
+	})
+})
