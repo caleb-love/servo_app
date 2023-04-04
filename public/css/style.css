@@ -13,6 +13,12 @@
 
 #map {
 	height: 100%;
+	border: 1px solid #3F403F;
+	margin: 5px;
+}
+
+.about {
+	border: 3px solid #3F403F;
 }
 
 .stats-section {
@@ -77,6 +83,10 @@
 	border: 3px solid #3F403F;
 	border-top: none;
 	background-color: antiquewhite;
+}
+
+.spotlight {
+	border: 3px solid #3F403F;
 }
   
 .station-item-right {
