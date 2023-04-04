@@ -1,4 +1,4 @@
-import { fetchStations } from "./servo_api.js"
+import { fetchStations, fetchStationsInBound } from "./servo_api.js"
 
 let map 
 
@@ -51,14 +51,6 @@ async function initMap() {
 				infoWindow.open(map, currentLocationMarker)
 			})
 
-			map.addListener("mouseup", () => {
-				fetchStations()
-			})
-		
-			map.addListener("zoom_changed", () => {
-				fetchStations()
-			})
-
 			map.addListener('center_changed', () => {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
@@ -84,7 +76,14 @@ async function initMap() {
 			})
 
 			map.addListener("bounds_changed", () => {
-				fetchStations()
+				const northEast = map.getBounds().getNorthEast()
+				const southWest = map.getBounds().getSouthWest()
+				const southLat = southWest.lat()
+				const northLat = northEast.lat()
+				const westLng = southWest.lng()
+				const eastLng = northEast.lng()
+
+				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then(res => res.forEach((station) => {
 						const icon = {
 							url: station.logo,
@@ -109,8 +108,6 @@ async function initMap() {
 				}))
 
 			})
-
-			
 
 			const backButton = document.createElement('button')
 			backButton.textContent = 'Current Location'
