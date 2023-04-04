@@ -15,6 +15,7 @@
 					<h1>spotlight</h1>
 					<a href="">refresh</a>
 				</section>
+
 				<section class="stats-section">
 					<h1>Stats</h1>
 					<p>total stations: 4000</p>
@@ -64,10 +65,12 @@
 					  </li>
 					</ul>
 				  </section>
+
 				<section>
 					<h1>latest prices</h1>
 					<p>add current date here</p>
 				</section>
+
 				<section>
 					<h1>about</h1>
 					<h2>team name: initToWinIt</h2>
@@ -80,19 +83,25 @@
 					<footer>&copy; 2023 initToWinIt</footer>
 				</section>
 			</aside>
+
 			<main id="map">
 				<h1>map</h1>
 			</main>
+
 			<aside class="right-sidebar">
 				<section class="clock">  </section>
+				
 				<section>
 					<h1>map center location</h1>
 				</section>
+				<div><h2>Nearest Petrol Stations</h2></div>
 				<section id="petrol-stations-list">
-					<h1>Nearest Petrol Stations</h1>
 				</section>
 			</aside>
+
 		</div>
+
+
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script 
 			src="https://maps.googleapis.com/maps/api/js?key=<%=googleApiKey%>&callback=initMap&v=weekly"
@@ -101,5 +110,6 @@
 		<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
         <script src="/components/clock.js"> </script>
+
 	</body>
 </html>
