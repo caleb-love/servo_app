@@ -15,7 +15,7 @@ app.use(express.json()) // json for body maybe not required ??
 const Station = require('./models/stations')
 
 app.get('/', (req, res) => {
-	res.render('index', { googleApiKey: config.googleApiKey })
+	res.render('index', { googleApiKey: config.googleApiKey, commoditiesApiKey: process.env.COMMODITIES_API_KEY, })
 })
 
 app.get('/api/station/all', (req, res) => {

@@ -115,11 +115,9 @@ async function updateCommodityPrices() {
 	const date = new Date().toLocaleDateString()
 	dateElement.textContent = `As of ${date}`
   
-	const apiKey = 'input api key'
-  
 	try {
 	  const response = await fetch(
-		`https://commodities-api.com/api/latest?access_key=${apiKey}&base=USD&symbols=WTIOIL,BRENTOIL,NG`,
+		`https://commodities-api.com/api/latest?access_key=${commoditiesApiKey}&base=USD&symbols=WTIOIL,BRENTOIL,NG`,
 	  )
   
 	  if (!response.ok) {
