@@ -6,7 +6,7 @@ function initMap(stations) {
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
 		minZoom: 10,
-		center: { lat: -33.8712, lng: 151.2046 },
+		center: { lat: -33.8712, lng: 151.2046 }, // set to GA location for now
 	})
 	const infoWindow = new google.maps.InfoWindow({
 		content: '',
@@ -76,6 +76,26 @@ function initMap(stations) {
 	})
 
 	new markerClusterer.MarkerClusterer({ markers, map })
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				const pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude,
+				}
+				infoWindow.setPosition(pos)
+				infoWindow.setContent('Location found.')
+				infoWindow.open(map)
+				map.setCenter(pos)
+			},
+			(error) => {
+				console.log(`Error getting location: ${error}`)
+			}
+		)
+	} else {
+		console.log('Geolocation is not supported.')
+	}
 }
 
 function fetchStations() {
