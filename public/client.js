@@ -6,8 +6,23 @@ function initMap(stations) {
 
 			const latElement = document.querySelector('.lat')
 			const lngElement = document.querySelector('.lng')
+			const locElement = document.querySelector('.map-loc')
 			latElement.textContent = lat.toFixed(6)
 			lngElement.textContent = lng.toFixed(6)
+
+			const geocoder = new google.maps.Geocoder()
+
+			geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+				if (status === 'OK') {
+					if (results[0]) {
+						locElement.textContent = results[0].formatted_address
+					} else {
+						locElement.textContent = 'Address not found'
+					}
+				} else {
+					locElement.textContent = 'Geocoder failed due to: ' + status
+				}
+			})
 
 			const map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 13,
@@ -60,17 +75,36 @@ function initMap(stations) {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
+
+				geocoder.geocode(
+					{ location: { lat, lng } },
+					(results, status) => {
+						if (status === 'OK') {
+							if (results[0]) {
+								locElement.textContent =
+									results[0].formatted_address
+							} else {
+								locElement.textContent = 'Address not found'
+							}
+						} else {
+							locElement.textContent =
+								'Geocoder failed due to: ' + status
+						}
+					}
+				)
 			})
 
-			const	backButton = document.createElement('button')
-					backButton.textContent = 'Current Location'
-					backButton.classList.add('back-button')
-					map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(backButton)
+			const backButton = document.createElement('button')
+			backButton.textContent = 'Current Location'
+			backButton.classList.add('back-button')
+			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(
+				backButton
+			)
 
-				backButton.addEventListener('click', () => {
-					map.setCenter({ lat: lat, lng: lng })
-					map.setZoom(13)
-				})
+			backButton.addEventListener('click', () => {
+				map.setCenter({ lat: lat, lng: lng })
+				map.setZoom(13)
+			})
 		})
 	} else {
 		alert('Please enable location services to use this feature.')
