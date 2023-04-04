@@ -6,7 +6,7 @@ class Station {
 
     static findAll(){
         //const sql = "select * from stations limit 400;" //meant to be limit 400 temp using 10
-        const sql = "select * from stations limit 10;"
+        const sql = "select * from stations limit 400;"
         return db.query(sql).then(res => res.rows )
     }
 
