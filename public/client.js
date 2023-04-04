@@ -1,3 +1,8 @@
+const lat = document.querySelector('.lat')
+const lng = document.querySelector('.lng')
+
+
+
 function initMap(stations) {
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
@@ -22,6 +27,12 @@ function initMap(stations) {
             anchor: new google.maps.Point(0, 0) 
         }
         
+		// function setLatLng(){
+		// 	lat.textContent = 
+		// }
+
+
+
 		const marker = new google.maps.Marker({
 			position: { lat: station.latitude, lng: station.longitude },
 			icon: icon,
@@ -31,7 +42,11 @@ function initMap(stations) {
         //     hoverWindow.setContent(`<p>${stations[i].name}</p>`)
         //     hoverWindow.open(map, marker)
         // });
-		map.addListener('center_changed',() => console.log(map.getCenter().toJSON()))
+		map.addListener('center_changed',() => {
+			lat.textContent = (map.getCenter().toJSON().lat)
+			lng.textContent = (map.getCenter().toJSON().lng)
+			
+		})
 
         marker.addListener('mouseover', () => {
             infoWindow.setContent(`<p>${stations[i].name}</p>`)
