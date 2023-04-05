@@ -55,24 +55,6 @@ async function initMap() {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
-
-				geocoder.geocode(
-					{ location: { lat, lng } },
-					(results, status) => {
-						if (status === 'OK') {
-							if (results[0]) {
-								locElement.textContent =
-									results[0].formatted_address
-							} else {
-								locElement.textContent = 'Address not found'
-							}
-						} else {
-							locElement.textContent =
-								'Geocoder failed due to: ' + status
-						}
-					}
-				)
-
 			})
 
 			map.addListener("bounds_changed", () => {
