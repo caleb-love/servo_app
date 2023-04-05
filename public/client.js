@@ -1,10 +1,11 @@
-import { fetchStations, fetchStationsInBound } from "./servo_api.js"
+import { fetchStations, fetchStationsInBound } from './servo_api.js'
+
 
 let map 
 let markers = []
 
 async function initMap() {
-	const { Map } = await google.maps.importLibrary("maps")
+	const { Map } = await google.maps.importLibrary('maps')
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -19,18 +20,6 @@ async function initMap() {
 
 			const geocoder = new google.maps.Geocoder()
 
-			geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-				if (status === 'OK') {
-					if (results[0]) {
-						locElement.textContent = results[0].formatted_address
-					} else {
-						locElement.textContent = 'Address not found'
-					}
-				} else {
-					locElement.textContent = 'Geocoder failed due to: ' + status
-				}
-			})
-			
 			map = new Map(document.getElementById('map'), {
 				zoom: 13,
 				minZoom: 10,
@@ -53,37 +42,37 @@ async function initMap() {
 				infoWindow.open(map, currentLocationMarker)
 			})
 
-			map.addListener('center_changed', () => {
+			map.addListener('mouseup', () => {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
-
+			  
 				geocoder.geocode(
-					{ location: { lat, lng } },
-					(results, status) => {
-						if (status === 'OK') {
-							if (results[0]) {
-								locElement.textContent =
-									results[0].formatted_address
-							} else {
-								locElement.textContent = 'Address not found'
-							}
-						} else {
-							locElement.textContent =
-								'Geocoder failed due to: ' + status
-						}
+				  { location: { lat, lng } },
+				  (results, status) => {
+					if (status === 'OK') {
+					  if (results[0]) {
+						locElement.textContent =
+						  results[0].formatted_address
+					  } else {
+						locElement.textContent = 'Address not found'
+					  }
+					} else {
+					  locElement.textContent = 'Do better Caleb'
 					}
+				  }
 				)
+			  })
+			  
 
-			})
-
-			map.addListener("bounds_changed", () => {
+			map.addListener('bounds_changed', () => {
 				const northEast = map.getBounds().getNorthEast()
 				const southWest = map.getBounds().getSouthWest()
 				const southLat = southWest.lat()
 				const northLat = northEast.lat()
 				const westLng = southWest.lng()
 				const eastLng = northEast.lng()
+
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then(res => {
@@ -156,30 +145,34 @@ async function initMap() {
 initMap()
 
 
-async function updatePetrolStationList() {
+
+async function updatePetrolStationList(lat, lng, radius) {
+
+
 	try {
-		const response = await axios.get('/api/station/all')
-		const stations = response.data.slice(0, 10)
-		const list = document.getElementById('petrol-stations-list')
-
-		list.innerHTML = ''
-
-		stations.forEach((station) => {
-			const item = document.createElement('div')
-			item.classList.add('station-item-right')
-			item.innerHTML = `
+	  const response = await axios.get(
+		`/api/stations/nearest?latitude=${lat}&longitude=${lng}&radius=${radius}`
+	  )
+	  const stations = response.data.slice(0, 10)
+	  const list = document.getElementById("petrol-stations-list")
+  
+	  list.innerHTML = ""
+  
+	  stations.forEach((station) => {
+		const item = document.createElement("div")
+		item.classList.add("station-item-right")
+		item.innerHTML = `
 		  <h2>${station.name}</h2>
 		  <p>${station.address}</p>
 		  <p>${station.owner}</p>
 		`
-			list.appendChild(item)
-		})
+		list.appendChild(item)
+	  })
 	} catch (error) {
-		console.error(error)
+	  console.error(error)
 	}
+	
 }
-
-updatePetrolStationList()
 
 async function updateCommodityPrices() {
 	const dateElement = document.getElementById('current-date')
