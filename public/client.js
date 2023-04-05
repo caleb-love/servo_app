@@ -67,6 +67,7 @@ async function initMap() {
 			google.maps.event.addListenerOnce(map, 'idle', updateLocationInfo)
 
 			map.addListener('mouseup', updateLocationInfo)
+			map.addListener('mouseup', () => updatePetrolStationList(lat, lng, 5))
 
 			map.addListener('bounds_changed', () => {
 				const northEast = map.getBounds().getNorthEast()
