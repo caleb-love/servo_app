@@ -1,6 +1,7 @@
 import { fetchStations, fetchStationsInBound } from "./servo_api.js"
 
 let map 
+let markers = []
 
 async function initMap() {
 	const { Map } = await google.maps.importLibrary("maps")
@@ -45,6 +46,7 @@ async function initMap() {
 				position: { lat, lng },
 				map: map,
 			})
+			markers.push(currentLocationMarker)
 
 			currentLocationMarker.addListener('click', () => {
 				infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
@@ -84,41 +86,54 @@ async function initMap() {
 				const eastLng = northEast.lng()
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
-					.then(res => res.forEach((station) => {
-						const icon = {
-							url: station.logo,
-							scaledSize: new google.maps.Size(50, 50),
-							origin: new google.maps.Point(0, 0),
-							anchor: new google.maps.Point(0, 0),
+					.then(res => {
+						for (let i = 0; i < markers.length; i++) {
+								markers[i].setMap(null)
 						}
-		
-						const marker = new google.maps.Marker({
-							position: { lat: Number(station.latitude), lng: Number(station.longitude) },
-							map,
-							icon,
-							label: "",
-						})
-						console.log(marker)
-		
-						marker.addListener('click', () => {
-							infoWindow.setContent(
-								`<strong>${station.name}</strong><br/>${station.address}`
-							)
-							infoWindow.open(map, marker)
-						})
+						markers = [currentLocationMarker]
+						
+						res.forEach(station => {
+						
+							const icon = {
+								url: station.logo,
+								scaledSize: new google.maps.Size(50, 50),
+								origin: new google.maps.Point(0, 0),
+								anchor: new google.maps.Point(0, 0),
+							}
+			
+							const marker = new google.maps.Marker({
+								position: { lat: Number(station.latitude), lng: Number(station.longitude) },
+								map,
+								icon,
+								label: "",
+							})
+							console.log(markers);
+							markers.push(marker)
+			
+							marker.addListener('click', () => {
+								infoWindow.setContent(
+									`<strong>${station.name}</strong><br/>${station.address}`
+								)
+								infoWindow.open(map, marker)
+							})
 
-						marker.addListener('mouseover', () => {
-							marker.set("label", {
-								text: station.name,
-								fontWeight: 'bold'
+							marker.addListener('mouseover', () => {
+								marker.set("label", {
+									text: station.name,
+									fontWeight: 'bold'
+								})
+							})
+
+							marker.addListener('mouseout', () => {
+								marker.set("label", "")
 							})
 						})
+				})
 
-						marker.addListener('mouseout', () => {
-							marker.set("label", "")
-						})
-				}))
-
+				for (let i = 0; i < markers.length; i++) {
+					markers[i].setMap(map);
+				}
+			
 			})
 
 			const backButton = document.createElement('button')
