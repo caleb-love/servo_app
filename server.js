@@ -3,6 +3,7 @@ const app = express()
 const config = require('./config')
 const db = require('./db')
 const Station = require('./models/stations')
+const axios = require('axios')
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -75,6 +76,20 @@ app.get('/api/stations/nearest', async (req, res) => {
 		})
 	}
 })
+
+app.get('/api/commodities', async (req, res) => {
+
+	try {
+	  const response = await axios.get(`https://commodities-api.com/api/latest?access_key=${process.env.COMMODITIES_API_KEY}&base=USD&symbols=WTIOIL,BRENTOIL,NG`)
+	  res.json(response.data)
+	  
+	} catch (error) {
+	  console.error(error)
+	  res.status(500).json({ error: 'An error occurred while fetching commodity data' })
+	}
+
+})
+  
 
 app.listen(config.port, () => {
 	console.log(`listening on port ${config.port}`)
