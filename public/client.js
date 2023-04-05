@@ -110,7 +110,8 @@ async function initMap() {
 							marker.addListener('mouseover', () => {
 								marker.set("label", {
 								text: station.name,
-								fontWeight: 'bold'
+								fontWeight: 'bold',
+								className: 'labels'
 								})
 							})
 								
