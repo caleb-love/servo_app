@@ -60,6 +60,26 @@ class Station {
         return db.query(query, [lat, lng, radius * 1000]).then(res => res.rows)
     }
 
+    static nearest_station( latitude , longitude , radius , limit ) {
+
+        const query = `
+          SELECT *, 
+            (6371 * acos(
+              cos(radians($1)) * cos(radians(latitude)) * cos(radians(longitude) - radians($2)) + sin(radians($1)) * sin(radians(latitude))
+            )) AS distance
+          FROM stations
+          WHERE 
+            (6371 * acos(
+              cos(radians($1)) * cos(radians(latitude)) * cos(radians(longitude) - radians($2)) + sin(radians($1)) * sin(radians(latitude))
+            )) <= $3
+          ORDER BY distance
+          LIMIT $4;
+        `
+        return db.query(query, [latitude, longitude, radius, limit])
+          .then(dbRes => dbRes.rows)     
+        
+    }  
+    
 }
 
 

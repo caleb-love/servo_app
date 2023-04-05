@@ -41,36 +41,16 @@ app.get('/api/station/bounds', (req, res) => {
 		.then((stations) => res.json(stations))
 })
 
-app.get('/api/stations/nearest', async (req, res) => {
+app.get('/api/stations/nearest', (req, res) => {
 
 	const latitude = parseFloat(req.query.latitude)
 	const longitude = parseFloat(req.query.longitude)
 	const radius = parseFloat(req.query.radius)
 	const limit = 700
 
-	const query = `
-	  SELECT *, 
-		(6371 * acos(
-		  cos(radians($1)) * cos(radians(latitude)) * cos(radians(longitude) - radians($2)) + sin(radians($1)) * sin(radians(latitude))
-		)) AS distance
-	  FROM stations
-	  WHERE 
-		(6371 * acos(
-		  cos(radians($1)) * cos(radians(latitude)) * cos(radians(longitude) - radians($2)) + sin(radians($1)) * sin(radians(latitude))
-		)) <= $3
-	  ORDER BY distance
-	  LIMIT $4;
-	`
-  
-	try {
-	  const result = await db.query(query, [latitude, longitude, radius, limit])
-	  res.json(result.rows)
-	  
-	} catch (error) {
-	  console.error(error)
-	  res.status(500).json({ error: 'An error occurred while fetching nearest stations' })
-	}
-
+	Station.nearest_station( latitude , longitude , radius , limit )
+	.then((results) => res.json(results))
+	
 })
 
 
