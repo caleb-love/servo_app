@@ -69,7 +69,7 @@ async function initMap() {
 			map.addListener('mouseup', updateLocationInfo)
 			map.addListener('mouseup', () => updatePetrolStationList(lat, lng, 5))
 
-			map.addListener('bounds_changed', () => {
+			map.addListener('idle', () => {
 				const northEast = map.getBounds().getNorthEast()
 				const southWest = map.getBounds().getSouthWest()
 				const southLat = southWest.lat()
