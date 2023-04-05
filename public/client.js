@@ -26,7 +26,7 @@ async function initMap() {
 						locElement.textContent = 'Address not found'
 					}
 				} else {
-					locElement.textContent = 'Geocoder failed due to: ' + status
+					locElement.textContent = 'Do better Caleb'
 				}
 			})
 			
@@ -98,7 +98,7 @@ async function initMap() {
 							icon,
 							label: "",
 						})
-						console.log(marker)
+						// console.log(marker)
 		
 						marker.addListener('click', () => {
 							infoWindow.setContent(
