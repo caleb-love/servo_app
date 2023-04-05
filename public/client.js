@@ -300,6 +300,8 @@ function getRandomStation() {
 		infoWindow.open(map, marker)
 	  })
   }
+
+
   
   document.addEventListener('DOMContentLoaded', () => {
 	getRandomStation()
@@ -310,3 +312,8 @@ function getRandomStation() {
 	})
   })
   
+const backLink = document.querySelector('#back-to-main-map')
+backLink.addEventListener('click', (event) => {
+	event.preventDefault()
+	initMap()
+})
