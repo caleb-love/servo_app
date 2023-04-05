@@ -1,9 +1,9 @@
-import { fetchStations, fetchStationsInBound } from "./servo_api.js"
+import { fetchStations, fetchStationsInBound } from './servo_api.js'
 
-let map 
+let map
 
 async function initMap() {
-	const { Map } = await google.maps.importLibrary("maps")
+	const { Map } = await google.maps.importLibrary('maps')
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -18,18 +18,6 @@ async function initMap() {
 
 			const geocoder = new google.maps.Geocoder()
 
-			geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-				if (status === 'OK') {
-					if (results[0]) {
-						locElement.textContent = results[0].formatted_address
-					} else {
-						locElement.textContent = 'Address not found'
-					}
-				} else {
-					locElement.textContent = 'Do better Caleb'
-				}
-			})
-			
 			map = new Map(document.getElementById('map'), {
 				zoom: 13,
 				minZoom: 10,
@@ -57,6 +45,7 @@ async function initMap() {
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
 
+
 			  
 				geocoder.geocode(
 				  { location: { lat, lng } },
@@ -78,9 +67,10 @@ async function initMap() {
 			await updatePetrolStationList(lat, lng, 5)
 
 
+
 			})
 
-			map.addListener("bounds_changed", () => {
+			map.addListener('bounds_changed', () => {
 				const northEast = map.getBounds().getNorthEast()
 				const southWest = map.getBounds().getSouthWest()
 				const southLat = southWest.lat()
@@ -88,42 +78,46 @@ async function initMap() {
 				const westLng = southWest.lng()
 				const eastLng = northEast.lng()
 
-				fetchStationsInBound(southLat, northLat, westLng, eastLng)
-					.then(res => res.forEach((station) => {
-						const icon = {
-							url: station.logo,
-							scaledSize: new google.maps.Size(50, 50),
-							origin: new google.maps.Point(0, 0),
-							anchor: new google.maps.Point(0, 0),
-						}
-		
-						const marker = new google.maps.Marker({
-							position: { lat: Number(station.latitude), lng: Number(station.longitude) },
-							map,
-							icon,
-							label: "",
-						})
-						// console.log(marker)
-		
-						marker.addListener('click', () => {
-							infoWindow.setContent(
-								`<strong>${station.name}</strong><br/>${station.address}`
-							)
-							infoWindow.open(map, marker)
-						})
+				fetchStationsInBound(southLat, northLat, westLng, eastLng).then(
+					(res) =>
+						res.forEach((station) => {
+							const icon = {
+								url: station.logo,
+								scaledSize: new google.maps.Size(50, 50),
+								origin: new google.maps.Point(0, 0),
+								anchor: new google.maps.Point(0, 0),
+							}
 
-						marker.addListener('mouseover', () => {
-							marker.set("label", {
-								text: station.name,
-								fontWeight: 'bold'
+							const marker = new google.maps.Marker({
+								position: {
+									lat: Number(station.latitude),
+									lng: Number(station.longitude),
+								},
+								map,
+								icon,
+								label: '',
+							})
+							// console.log(marker)
+
+							marker.addListener('click', () => {
+								infoWindow.setContent(
+									`<strong>${station.name}</strong><br/>${station.address}`
+								)
+								infoWindow.open(map, marker)
+							})
+
+							marker.addListener('mouseover', () => {
+								marker.set('label', {
+									text: station.name,
+									fontWeight: 'bold',
+								})
+							})
+
+							marker.addListener('mouseout', () => {
+								marker.set('label', '')
 							})
 						})
-
-						marker.addListener('mouseout', () => {
-							marker.set("label", "")
-						})
-				}))
-
+				)
 			})
 
 			const backButton = document.createElement('button')
@@ -146,7 +140,9 @@ async function initMap() {
 initMap()
 
 
+
 async function updatePetrolStationList(lat, lng, radius) {
+
 
 	try {
 	  const response = await axios.get(
