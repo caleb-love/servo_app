@@ -2,7 +2,7 @@ import { fetchStations, fetchStationsInBound } from './servo_api.js'
 
 
 let map 
-let markers = []
+let markers
 
 async function initMap() {
 	const { Map } = await google.maps.importLibrary('maps')
@@ -35,7 +35,7 @@ async function initMap() {
 				position: { lat, lng },
 				map: map,
 			})
-			markers.push(currentLocationMarker)
+			markers = [currentLocationMarker]
 
 			currentLocationMarker.addListener('click', () => {
 				infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
@@ -80,9 +80,7 @@ async function initMap() {
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then(res => {
-						for (let i = 0; i < markers.length; i++) {
-								markers[i].setMap(null)
-						}
+						setMapOnAll(null)
 						markers = [currentLocationMarker]
 						
 						res.forEach(station => {
@@ -100,35 +98,33 @@ async function initMap() {
 								icon,
 								label: "",
 							})
-							console.log(markers);
 							markers.push(marker)
-			
+							
 							marker.addListener('click', () => {
 								infoWindow.setContent(
 									`<strong>${station.name}</strong><br/>${station.address}`
 								)
 								infoWindow.open(map, marker)
 							})
-
+								
 							marker.addListener('mouseover', () => {
 								marker.set("label", {
-									text: station.name,
-									fontWeight: 'bold'
+								text: station.name,
+								fontWeight: 'bold'
 								})
 							})
-
+								
 							marker.addListener('mouseout', () => {
 								marker.set("label", "")
 							})
 						})
+					})
+					.then(res => {
+						setMapOnAll(map)
+						// console.log(markers)
+					})
 				})
-
-				for (let i = 0; i < markers.length; i++) {
-					markers[i].setMap(map);
-				}
-			
-			})
-
+					
 			const backButton = document.createElement('button')
 			backButton.textContent = 'Current Location'
 			backButton.classList.add('back-button')
@@ -145,6 +141,12 @@ async function initMap() {
 		alert('Please enable location services to use this feature.')
 	}
 }
+
+function setMapOnAll(map) {
+	for (let i = 0; i < markers.length; i++) {
+	  markers[i].setMap(map)
+	}
+  }
 
 initMap()
 
