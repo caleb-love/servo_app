@@ -96,14 +96,26 @@ async function initMap() {
 							position: { lat: Number(station.latitude), lng: Number(station.longitude) },
 							map,
 							icon,
-							label: { text: station.name, fontWeight: 'bold' },
+							label: "",
 						})
+						console.log(marker)
 		
 						marker.addListener('click', () => {
 							infoWindow.setContent(
 								`<strong>${station.name}</strong><br/>${station.address}`
 							)
 							infoWindow.open(map, marker)
+						})
+
+						marker.addListener('mouseover', () => {
+							marker.set("label", {
+								text: station.name,
+								fontWeight: 'bold'
+							})
+						})
+
+						marker.addListener('mouseout', () => {
+							marker.set("label", "")
 						})
 				}))
 
@@ -127,7 +139,7 @@ async function initMap() {
 }
 
 initMap()
-// fetchStations().then((window.initMap = initMap))
+
 
 async function updatePetrolStationList() {
 	try {
