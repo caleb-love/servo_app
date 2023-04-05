@@ -145,6 +145,17 @@
 	background-color: antiquewhite;
 }
 
+
+ /* ------------------ mouse over label styling */
+.labels{
+	border-radius: 7%;
+	background-color:rgba(252, 252, 252, 0.7);
+	height: 40px;
+	display: flex;	
+	align-items: center;
+	justify-content: center;
+}
+
 /* ----------------hot key element KEEP AT BOTTOM */
 .none {
 	display: none;
