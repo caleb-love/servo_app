@@ -1,4 +1,4 @@
-import { fetchStations, fetchStationsInBound } from '../servo_api.js'
+import { fetchStationsInBound, fetchRandom } from '../servo_api.js'
 
 let map
 let markers
@@ -215,10 +215,10 @@ async function updatePetrolStationList(lat, lng, radius) {
 			const item = document.createElement('div')
 			item.classList.add('station-item-right')
 			item.innerHTML = `
-		  <h2>${station.name}</h2>
-		  <p>${station.address}</p>
-		  <p>${station.owner}</p>
-		`
+                <h2>${station.name}</h2>
+                <p>${station.address}</p>
+                <p>${station.owner}</p>
+            `
 			list.appendChild(item)
 		})
 	} catch (error) {
@@ -227,34 +227,33 @@ async function updatePetrolStationList(lat, lng, radius) {
 }
 
 function getRandomStation() {
-	fetch('/api/station/random')
-	  .then(response => response.json())
-	  .then(({ name, owner, latitude, longitude, address, suburb, state, logo }) => {
-        let spotlightMarker
+    fetchRandom()
+        .then(({ name, owner, latitude, longitude, address, suburb, state, logo }) => {
+            let spotlightMarker
 
-		spotlightStation.innerHTML = `
-            <p>Name: <strong>${name}</strong></p>
-            <p>Owner: ${owner} </p>
-            <p>Location: ${address}, ${suburb}, ${state}</p>
-        `
+            spotlightStation.innerHTML = `
+                <p>Name: <strong>${name}</strong></p>
+                <p>Owner: ${owner} </p>
+                <p>Location: ${address}, ${suburb}, ${state}</p>
+            `
 
-        map.setCenter({ lat: latitude, lng: longitude })
-        
-		spotlightMarker = new google.maps.Marker({
-            position: { lat: latitude, lng: longitude },
-            map,
-            icon: {
-                url: logo,
-                scaledSize: new google.maps.Size(50, 50),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 0),
-            }
-		})
+            map.setCenter({ lat: latitude, lng: longitude })
+            
+            spotlightMarker = new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+                map,
+                icon: {
+                    url: logo,
+                    scaledSize: new google.maps.Size(50, 50),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0),
+                }
+            })
 
-		const infoWindow = new google.maps.InfoWindow({
-		  content: `<strong>${name}</strong><br/>${address}`,
-		})
-		infoWindow.open(map, spotlightMarker)
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<strong>${name}</strong><br/>${address}`,
+            })
+            infoWindow.open(map, spotlightMarker)
 
     })
 }
