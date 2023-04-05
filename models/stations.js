@@ -47,6 +47,19 @@ class Station {
     })
     }
 
+    static stations_nearby(lat, lng, radius) {
+        
+        const query = `
+          SELECT id, name, owner, address, logo, latitude, longitude,
+            earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) AS distance
+          FROM stations
+          WHERE earth_box(ll_to_earth($1, $2), $3) @> ll_to_earth(latitude, longitude)
+          ORDER BY distance
+          LIMIT 700
+        `
+        return db.query(query, [lat, lng, radius * 1000]).then(res => res.rows)
+    }
+
 }
 
 
