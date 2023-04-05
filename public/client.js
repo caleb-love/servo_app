@@ -39,13 +39,10 @@ async function initMap() {
 				infoWindow.open(map, currentLocationMarker)
 			})
 
-			map.addListener('center_changed', async () => {
-
+			map.addListener('mouseup', () => {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
-
-
 			  
 				geocoder.geocode(
 				  { location: { lat, lng } },
@@ -58,17 +55,12 @@ async function initMap() {
 						locElement.textContent = 'Address not found'
 					  }
 					} else {
-					  locElement.textContent =
-						'Geocoder failed due to: ' + status
+					  locElement.textContent = 'Do better Caleb'
 					}
 				  }
 				)
+			  })
 			  
-			await updatePetrolStationList(lat, lng, 5)
-
-
-
-			})
 
 			map.addListener('bounds_changed', () => {
 				const northEast = map.getBounds().getNorthEast()
