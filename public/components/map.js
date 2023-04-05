@@ -1,4 +1,4 @@
-import { fetchStations, fetchStationsInBound } from '../servo_api.js'
+import { fetchStationsInBound, fetchRandom } from '../servo_api.js'
 
 let map
 let markers
@@ -9,7 +9,8 @@ const locElement = document.querySelector('.map-loc')
 const leftSidebar = document.querySelector('.left-sidebar')
 const rightSidebar = document.querySelector('.right-sidebar')
 const contentWrapper = document.querySelector('.content-wrapper')
-const backLink = document.querySelector('#back-to-main-map')
+const spotlightStation = document.querySelector('#station-info')
+const refreshLink = document.querySelector('#refresh-link')
 const legend = document.getElementById('legend')
 
 const icons = {
@@ -214,10 +215,10 @@ async function updatePetrolStationList(lat, lng, radius) {
 			const item = document.createElement('div')
 			item.classList.add('station-item-right')
 			item.innerHTML = `
-		  <h2>${station.name}</h2>
-		  <p>${station.address}</p>
-		  <p>${station.owner}</p>
-		`
+                <h2>${station.name}</h2>
+                <p>${station.address}</p>
+                <p>${station.owner}</p>
+            `
 			list.appendChild(item)
 		})
 	} catch (error) {
@@ -226,30 +227,40 @@ async function updatePetrolStationList(lat, lng, radius) {
 }
 
 function getRandomStation() {
-	fetch('/api/station/random')
-	  .then(response => response.json())
-	  .then(({ owner, latitude, longitude, address }) => {
-		const spotlightStation = document.querySelector('#station-info')
-		const nameLink = `
-		  <a href="#" onClick="showStation(${latitude}, ${longitude})">${owner}</a>
-		`
-		const stationName = `<p>Name: ${nameLink}</p>`
-		const stationLocation = `<p>Location: ${address}</p>`
-		spotlightStation.innerHTML = `${stationName}${stationLocation}`
-		const map = new google.maps.Map(document.getElementById('map'), {
-		  center: { lat: latitude, lng: longitude },
-		  zoom: 16,
-		})
-		const marker = new google.maps.Marker({
-		  position: { lat: latitude, lng: longitude },
-		  map,
-		})
-		const infoWindow = new google.maps.InfoWindow({
-		  content: `<p>Name: ${owner}</p><p>Location: ${address}</p>`,
-		})
-		infoWindow.open(map, marker)
-	  })
-  }
+    fetchRandom()
+        .then(({ name, owner, latitude, longitude, address, suburb, state, logo }) => {
+            let spotlightMarker
+
+            spotlightStation.innerHTML = `
+                <p>Name: <strong>${name}</strong></p>
+                <p>Owner: ${owner} </p>
+                <p>Location: ${address}, ${suburb}, ${state}</p>
+            `
+
+            map.setCenter({ lat: latitude, lng: longitude })
+            
+            spotlightMarker = new google.maps.Marker({
+                position: { lat: latitude, lng: longitude },
+                map,
+                icon: {
+                    url: logo,
+                    scaledSize: new google.maps.Size(50, 50),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0),
+                }
+            })
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<strong>${name}</strong><br/>${address}`,
+            })
+            infoWindow.open(map, spotlightMarker)
+
+            latElement.textContent = latitude
+            lngElement.textContent = longitude
+            locElement.textContent = `${address}, ${suburb}, ${state}`
+
+    })
+}
 
 function doc_keyUp(e) {
 	if (e.ctrlKey && e.keyCode == 66) {
@@ -259,21 +270,15 @@ function doc_keyUp(e) {
 	}
 }
 
-
 initMap()
 
 document.addEventListener('DOMContentLoaded', () => {
 	getRandomStation()
-	const refreshLink = document.querySelector('#refresh-link')
-	refreshLink.addEventListener('click', (event) => {
-	  event.preventDefault()
-	  getRandomStation()
-	})
 })
-  
-backLink.addEventListener('click', (event) => {
-	event.preventDefault()
-	initMap()
+
+refreshLink.addEventListener('click', (event) => {
+    event.preventDefault()
+    getRandomStation()
 })
 
 document.addEventListener('keyup', doc_keyUp, false)
