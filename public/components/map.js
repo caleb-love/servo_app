@@ -1,4 +1,5 @@
 import { fetchStationsInBound, fetchRandom } from '../servo_api.js'
+import { updatePetrolStationList } from './nearest_list.js'
 
 let map
 let markers
@@ -10,6 +11,7 @@ const leftSidebar = document.querySelector('.left-sidebar')
 const rightSidebar = document.querySelector('.right-sidebar')
 const contentWrapper = document.querySelector('.content-wrapper')
 const spotlightStation = document.querySelector('#station-info')
+const spotlight_section = document.querySelector('.spotlight-section')
 const refreshLink = document.querySelector('#refresh-link')
 const legend = document.getElementById('legend')
 
@@ -224,39 +226,16 @@ function setMapOnAll(map) {
 	}
 }
 
-async function updatePetrolStationList(lat, lng, radius) {
-	try {
-		const response = await axios.get(
-			`/api/stations/nearest?latitude=${lat}&longitude=${lng}&radius=${radius}`
-		)
-		const stations = response.data.slice(0, 10)
-		const list = document.getElementById('petrol-stations-list')
-
-		list.innerHTML = ''
-
-		stations.forEach((station) => {
-			const item = document.createElement('div')
-			item.classList.add('station-item-right')
-			item.innerHTML = `
-                <h2>${station.name}</h2>
-                <p>${station.address}</p>
-                <p>${station.owner}</p>
-            `
-			list.appendChild(item)
-		})
-	} catch (error) {
-		console.error(error)
-	}
-}
-
 function getRandomStation() {
     fetchRandom()
         .then(({ name, owner, latitude, longitude, address, suburb, state, logo }) => {
             let spotlightMarker
-
+			spotlight_section.querySelector('img').src = logo
+			
+			
             spotlightStation.innerHTML = `
                 <p>Name: <strong>${name}</strong></p>
-                <p>Owner: ${owner} </p>
+				<p>Owner: ${owner} </p>
                 <p>Location: ${address}, ${suburb}, ${state}</p>
             `
 
