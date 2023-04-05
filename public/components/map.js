@@ -255,6 +255,10 @@ function getRandomStation() {
             })
             infoWindow.open(map, spotlightMarker)
 
+            latElement.textContent = latitude
+            lngElement.textContent = longitude
+            locElement.textContent = `${address}, ${suburb}, ${state}`
+
     })
 }
 
