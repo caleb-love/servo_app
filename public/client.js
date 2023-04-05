@@ -141,7 +141,54 @@ async function initMap() {
 				map.setCenter({ lat: lat, lng: lng })
 				map.setZoom(13)
 			})
+
+			const icons = {
+				current: {
+					name: 'Current Location',
+					icon: '/images/marker.png',
+				},
+				caltex: {
+				  name: 'Caltex',
+				  icon: '/images/Caltex.png',
+				},
+				bp: {
+				  name: 'BP',
+				  icon: '/images/BP.png',
+				},
+				shell: {
+				  name: 'Shell',
+				  icon: '/images/Shell.png',
+				},
+				sevenEleven: {
+					name: '7-Eleven Pty Ltd',
+					icon: '/images/7Eleven.png',
+				},
+				united: {
+					name: 'United', 
+					icon: '/images/United.jpg',
+				},
+				other: {
+					name: 'Other', 
+					icon: '/images/petrol.png',
+				}
+			}
+	
+			const legend = document.getElementById('legend');
+	
+			for (const key in icons) {
+			  const type = icons[key];
+			  const name = type.name;
+			  const icon = type.icon;
+			  const div = document.createElement('div');
+		  
+			  div.innerHTML = '<img src="' + icon + '"> ' + name;
+			  legend.appendChild(div);
+			}
+		  
+			map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 		})
+
+
 	} else {
 		alert('Please enable location services to use this feature.')
 	}
