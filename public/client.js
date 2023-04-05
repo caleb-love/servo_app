@@ -26,7 +26,7 @@ async function initMap() {
 						locElement.textContent = 'Address not found'
 					}
 				} else {
-					locElement.textContent = 'Geocoder failed due to: ' + status
+					locElement.textContent = 'Do better Caleb'
 				}
 			})
 			
@@ -56,6 +56,7 @@ async function initMap() {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
+
 			  
 				geocoder.geocode(
 				  { location: { lat, lng } },
@@ -75,6 +76,7 @@ async function initMap() {
 				)
 			  
 			await updatePetrolStationList(lat, lng, 5)
+
 
 			})
 
@@ -101,7 +103,7 @@ async function initMap() {
 							icon,
 							label: "",
 						})
-						console.log(marker)
+						// console.log(marker)
 		
 						marker.addListener('click', () => {
 							infoWindow.setContent(
