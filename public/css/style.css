@@ -56,21 +56,24 @@
 .spotlight-section {
 	padding: 0 5px 40px 5px;
 	border: 3px solid black;
-	/* display: grid;
-	grid-template-columns: 3fr 1fr; */
+	display: grid;
+	grid-template-columns: 3fr 1fr;
 	background-color: #ffe4e1;
 	margin: 0;
 }
 
 .spotlight-section img {
-	height: 60px;
-	display: block;
+	height: 50px;
+	
 	padding-top: 32px;
+	padding-bottom: 10px;
 }
 
 /* --------------- Stats section */
 .stats-section {
-	border: 3px solid black;
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+
 	padding: 10px 5px 40px 5px;
 	background-color: #fff0d5;
 	
@@ -101,6 +104,7 @@
 .about {
 	border: 3px solid #3F403F;
 	padding: 0 5px 0 5px;
+	margin: 0;
 }
 /* -------------------------------------------- right section --------------------------------- */
 /* ------------------------------- clock element */
@@ -111,6 +115,7 @@
     color: #3F403F;
 	height: 70px;
 	border: 3px solid #3F403F;
+	border-bottom: none;
 	background-color: #FFEDDC;
     font-size: 24px;
     font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
@@ -135,15 +140,15 @@
 #petrol-stations-list {
 	border: 3px solid #3F403F;
 	border-top: none;
-	background-color: antiquewhite;
+	background-color: #fff0d5;
 }
-  
+
 .station-item-right {
 	display: flex;
 	flex-direction: column;
 	border-radius: 3px;
 	border-top: 3px solid #3F403F;
-	padding-left: 5px;
+	padding: 0 0 5px 5px;
 }
   
   .station-item-right h2 {
@@ -156,10 +161,15 @@
 }
 
 .nearest-ps {
-	border-left: 3px solid #3F403F;
-	border-right: 3px solid #3F403F;
+	/* border-left: 3px solid #3F403F;
+	border-right: 3px solid #3F403F; */
+	
+	padding: 5px 0px 20px 5px;
+	border: 3px solid #3F403F;
+	border-bottom: none;
 	margin: -19.9px 0;
-	background-color: antiquewhite;
+	background-color: #fff0d5;
+	
 }
 
 /* ----------------------------------------------------- Dynamic Elements -------------------------------- */
