@@ -42,28 +42,31 @@ async function initMap() {
 				infoWindow.open(map, currentLocationMarker)
 			})
 
-			map.addListener('mouseup', () => {
+			function updateLocationInfo() {
 				const { lat, lng } = map.getCenter().toJSON()
 				latElement.textContent = lat.toFixed(6)
 				lngElement.textContent = lng.toFixed(6)
-			  
+
 				geocoder.geocode(
-				  { location: { lat, lng } },
-				  (results, status) => {
-					if (status === 'OK') {
-					  if (results[0]) {
-						locElement.textContent =
-						  results[0].formatted_address
-					  } else {
-						locElement.textContent = 'Address not found'
-					  }
-					} else {
-					  locElement.textContent = 'Do better Caleb'
+					{ location: { lat, lng } },
+					(results, status) => {
+						if (status === 'OK') {
+							if (results[0]) {
+								locElement.textContent =
+									results[0].formatted_address
+							} else {
+								locElement.textContent = 'Address not found'
+							}
+						} else {
+							locElement.textContent = 'Do better Caleb'
+						}
 					}
-				  }
 				)
-			  })
-			  
+			}
+
+			google.maps.event.addListenerOnce(map, 'idle', updateLocationInfo)
+
+			map.addListener('mouseup', updateLocationInfo)
 
 			map.addListener('bounds_changed', () => {
 				const northEast = map.getBounds().getNorthEast()
@@ -144,34 +147,29 @@ async function initMap() {
 
 initMap()
 
-
-
 async function updatePetrolStationList(lat, lng, radius) {
-
-
 	try {
-	  const response = await axios.get(
-		`/api/stations/nearest?latitude=${lat}&longitude=${lng}&radius=${radius}`
-	  )
-	  const stations = response.data.slice(0, 10)
-	  const list = document.getElementById("petrol-stations-list")
-  
-	  list.innerHTML = ""
-  
-	  stations.forEach((station) => {
-		const item = document.createElement("div")
-		item.classList.add("station-item-right")
-		item.innerHTML = `
+		const response = await axios.get(
+			`/api/stations/nearest?latitude=${lat}&longitude=${lng}&radius=${radius}`
+		)
+		const stations = response.data.slice(0, 10)
+		const list = document.getElementById('petrol-stations-list')
+
+		list.innerHTML = ''
+
+		stations.forEach((station) => {
+			const item = document.createElement('div')
+			item.classList.add('station-item-right')
+			item.innerHTML = `
 		  <h2>${station.name}</h2>
 		  <p>${station.address}</p>
 		  <p>${station.owner}</p>
 		`
-		list.appendChild(item)
-	  })
+			list.appendChild(item)
+		})
 	} catch (error) {
-	  console.error(error)
+		console.error(error)
 	}
-	
 }
 
 async function updateCommodityPrices() {
