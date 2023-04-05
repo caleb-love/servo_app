@@ -1,7 +1,6 @@
 import { fetchStations, fetchStationsInBound } from './servo_api.js'
 
-
-let map 
+let map
 let markers
 
 async function initMap() {
@@ -79,54 +78,55 @@ async function initMap() {
 				const westLng = southWest.lng()
 				const eastLng = northEast.lng()
 
-
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
-					.then(res => {
+					.then((res) => {
 						setMapOnAll(null)
 						markers = [currentLocationMarker]
-						
-						res.forEach(station => {
-						
+
+						res.forEach((station) => {
 							const icon = {
 								url: station.logo,
 								scaledSize: new google.maps.Size(50, 50),
 								origin: new google.maps.Point(0, 0),
 								anchor: new google.maps.Point(0, 0),
 							}
-			
+
 							const marker = new google.maps.Marker({
-								position: { lat: Number(station.latitude), lng: Number(station.longitude) },
+								position: {
+									lat: Number(station.latitude),
+									lng: Number(station.longitude),
+								},
 								map,
 								icon,
-								label: "",
+								label: '',
 							})
 							markers.push(marker)
-							
+
 							marker.addListener('click', () => {
 								infoWindow.setContent(
 									`<strong>${station.name}</strong><br/>${station.address}`
 								)
 								infoWindow.open(map, marker)
 							})
-								
+
 							marker.addListener('mouseover', () => {
-								marker.set("label", {
-								text: station.name,
-								fontWeight: 'bold'
+								marker.set('label', {
+									text: station.name,
+									fontWeight: 'bold',
 								})
 							})
-								
+
 							marker.addListener('mouseout', () => {
-								marker.set("label", "")
+								marker.set('label', '')
 							})
 						})
 					})
-					.then(res => {
+					.then((res) => {
 						setMapOnAll(map)
 						// console.log(markers)
 					})
-				})
-					
+			})
+
 			const backButton = document.createElement('button')
 			backButton.textContent = 'Current Location'
 			backButton.classList.add('back-button')
@@ -146,9 +146,9 @@ async function initMap() {
 
 function setMapOnAll(map) {
 	for (let i = 0; i < markers.length; i++) {
-	  markers[i].setMap(map)
+		markers[i].setMap(map)
 	}
-  }
+}
 
 initMap()
 
@@ -224,3 +224,39 @@ function doc_keyUp(e) {
 		contentWrapper.classList.toggle('full-screen')
 	}
 }
+
+function getRandomStation() {
+	fetch('/api/station/random')
+	  .then(response => response.json())
+	  .then(({ owner, latitude, longitude, address }) => {
+		const spotlightStation = document.querySelector('#station-info')
+		const nameLink = `
+		  <a href="#" onClick="showStation(${latitude}, ${longitude})">${owner}</a>
+		`
+		const stationName = `<p>Name: ${nameLink}</p>`
+		const stationLocation = `<p>Location: ${address}</p>`
+		spotlightStation.innerHTML = `${stationName}${stationLocation}`
+		const map = new google.maps.Map(document.getElementById('map'), {
+		  center: { lat: latitude, lng: longitude },
+		  zoom: 16,
+		})
+		const marker = new google.maps.Marker({
+		  position: { lat: latitude, lng: longitude },
+		  map,
+		})
+		const infoWindow = new google.maps.InfoWindow({
+		  content: `<p>Name: ${owner}</p><p>Location: ${address}</p>`,
+		})
+		infoWindow.open(map, marker)
+	  })
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+	getRandomStation()
+	const refreshLink = document.querySelector('#refresh-link')
+	refreshLink.addEventListener('click', (event) => {
+	  event.preventDefault()
+	  getRandomStation()
+	})
+  })
+  
