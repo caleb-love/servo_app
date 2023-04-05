@@ -36,10 +36,27 @@
 	padding-top: 32px;
 }
 
+/* ------------------ legend */
 
-
-
-
+#legend {
+	background: rgb(255, 255, 255, 0.95);
+	padding: 10px;
+	margin: 10px;
+	width: fit-content;
+	box-shadow: 2px 2px 10px #868585;
+  }
+  
+  #legend h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-bottom: 4px;
+  }
+  
+  #legend img {
+	vertical-align: middle;
+	height: 18px;
+	padding: 2px;
+  }
 
 
 /* --------------------- Stats section */
