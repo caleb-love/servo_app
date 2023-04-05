@@ -14,39 +14,39 @@ const refreshLink = document.querySelector('#refresh-link')
 const legend = document.getElementById('legend')
 
 const icons = {
-    current: {
-        name: 'Current Location',
-        icon: '/images/marker.png',
-    },
-    caltex: {
-      name: 'Caltex',
-      icon: '/images/Caltex.png',
-    },
-    bp: {
-      name: 'BP',
-      icon: '/images/BP.png',
-    },
-    shell: {
-      name: 'Shell',
-      icon: '/images/Shell.png',
-    },
-    sevenEleven: {
-        name: '7-Eleven Pty Ltd',
-        icon: '/images/7Eleven.png',
-    },
-    united: {
-        name: 'United', 
-        icon: '/images/United.jpg',
-    },
-    other: {
-        name: 'Other', 
-        icon: '/images/petrol.png',
-    }
+	current: {
+		name: 'Current Location',
+		icon: '/images/marker.png',
+	},
+	caltex: {
+		name: 'Caltex',
+		icon: '/images/Caltex.png',
+	},
+	bp: {
+		name: 'BP',
+		icon: '/images/BP.png',
+	},
+	shell: {
+		name: 'Shell',
+		icon: '/images/Shell.png',
+	},
+	sevenEleven: {
+		name: '7-Eleven Pty Ltd',
+		icon: '/images/7Eleven.png',
+	},
+	united: {
+		name: 'United',
+		icon: '/images/United.jpg',
+	},
+	other: {
+		name: 'Other',
+		icon: '/images/petrol.png',
+	},
 }
 
 async function initMap() {
-    const { Map } = await google.maps.importLibrary('maps')
-    
+	const { Map } = await google.maps.importLibrary('maps')
+
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition((position) => {
 			const lat = position.coords.latitude
@@ -109,6 +109,8 @@ async function initMap() {
 
 			map.addListener('mouseup', updateLocationInfo)
 
+			let displayedStations = []
+
 			map.addListener('idle', () => {
 				const northEast = map.getBounds().getNorthEast()
 				const southWest = map.getBounds().getSouthWest()
@@ -119,58 +121,80 @@ async function initMap() {
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then((res) => {
-						setMapOnAll(null)
-						markers = [currentLocationMarker]
-
 						res.forEach((station) => {
-							const icon = {
-								url: station.logo,
-								scaledSize: new google.maps.Size(50, 50),
-								origin: new google.maps.Point(0, 0),
-								anchor: new google.maps.Point(0, 0),
-							}
-
-							const marker = new google.maps.Marker({
-								position: {
-									lat: Number(station.latitude),
-									lng: Number(station.longitude),
-								},
-								map,
-								icon,
-								label: '',
-							})
-							markers.push(marker)
-
-							marker.addListener('click', () => {
-								infoWindow.setContent(
-									`<strong>${station.name}</strong><br/>${station.address}`
+							if (
+								!displayedStations.some(
+									(s) => s.id === station.id
 								)
-								infoWindow.open(map, marker)
-							})
+							) {
+								const icon = {
+									url: station.logo,
+									scaledSize: new google.maps.Size(50, 50),
+									origin: new google.maps.Point(0, 0),
+									anchor: new google.maps.Point(0, 0),
+								}
 
-							marker.addListener('mouseover', () => {
-								marker.set("label", {
-								text: station.name,
-								fontWeight: 'bold',
-								className: 'labels'
+								const marker = new google.maps.Marker({
+									position: {
+										lat: station.latitude,
+										lng: station.longitude,
+									},
+									map,
+									icon,
+									label: '',
 								})
-							})
+								markers.push(marker)
 
-							marker.addListener('mouseout', () => {
-								marker.set('label', '')
-							})
+								marker.addListener('click', () => {
+									infoWindow.setContent(
+										`<strong>${station.name}</strong><br/>${station.address}`
+									)
+									infoWindow.open(map, marker)
+								})
+
+								marker.addListener('mouseover', () => {
+									marker.set('label', {
+										text: station.name,
+										fontWeight: 'bold',
+										className: 'labels',
+									})
+								})
+
+								marker.addListener('mouseout', () => {
+									marker.set('label', '')
+								})
+
+								displayedStations.push({
+									id: station.id,
+									marker,
+								})
+							}
 						})
 					})
 					.then((res) => {
-						setMapOnAll(map)
-						// console.log(markers)
+						displayedStations.forEach((station) => {
+							if (
+								!map
+									.getBounds()
+									.contains(station.marker.getPosition())
+							) {
+								station.marker.setMap(null)
+
+								const index = displayedStations.indexOf(station)
+								if (index > -1) {
+									displayedStations.splice(index, 1)
+								}
+							}
+						})
 					})
 			})
 
 			const backButton = document.createElement('button')
 			backButton.textContent = 'Current Location'
 			backButton.classList.add('back-button')
-			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(backButton)
+			map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(
+				backButton
+			)
 
 			backButton.addEventListener('click', () => {
 				map.setCenter({ lat: lat, lng: lng })
@@ -178,18 +202,17 @@ async function initMap() {
 			})
 
 			for (const key in icons) {
-			  const type = icons[key]
-			  const name = type.name
-			  const icon = type.icon
-			  const div = document.createElement('div')
-		  
-			  div.innerHTML = '<img src="' + icon + '"> ' + name
-			  legend.appendChild(div)
+				const type = icons[key]
+				const name = type.name
+				const icon = type.icon
+				const div = document.createElement('div')
+
+				div.innerHTML = '<img src="' + icon + '"> ' + name
+				legend.appendChild(div)
 			}
-		  
+
 			map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend)
 		})
-
 	} else {
 		alert('Please enable location services to use this feature.')
 	}
