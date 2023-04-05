@@ -11,29 +11,22 @@
 	height: 100vh;
 }
 
+/* ----------------------------------------------- Map -------------------------------  */
+
 #map {
 	height: 100vh;
 	border: 1px solid #3F403F;
 	margin: 5px;
 }
 
-.about {
-	border: 3px solid #3F403F;
-}
-
-.spotlight-section {
-	padding: 0 5px 40px 5px;
-	border: 3px solid black;
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	background-color: #ffe4e1;
-	margin: 0;
-}
-
-.spotlight-section img {
-	height: 60px;
-	display: block;
-	padding-top: 32px;
+ /* -------------- mouse over label styling */
+ .labels{
+	border-radius: 7%;
+	background-color:rgba(252, 252, 252, 0.7);
+	height: 40px;
+	display: flex;	
+	align-items: center;
+	justify-content: center;
 }
 
 /* ------------------ legend */
@@ -58,25 +51,33 @@
 	padding: 2px;
   }
 
+/* ------------------------------------------- Left section ----------------------------------- */
+/* --------------- spotlight */
+.spotlight-section {
+	padding: 0 5px 40px 5px;
+	border: 3px solid black;
+	/* display: grid;
+	grid-template-columns: 3fr 1fr; */
+	background-color: #ffe4e1;
+	margin: 0;
+}
 
-/* --------------------- Stats section */
+.spotlight-section img {
+	height: 60px;
+	display: block;
+	padding-top: 32px;
+}
+
+/* --------------- Stats section */
 .stats-section {
 	border: 3px solid black;
 	padding: 10px 5px 40px 5px;
 	background-color: #fff0d5;
-	/* margin-top: 5px; */
 	
 }
 .stats-section h3, .stats-section h2{
 	margin: 3px 0;
 }
-.latest-section {
-	border: 3px solid #3F403F;
-	padding: 0 5px 0 5px;
-	background-color: #FFDCFF;
-	margin-top: 5px;
-}
-
 .stats-list {
 	list-style: none;
 	padding-left: 0;
@@ -89,6 +90,18 @@
 	align-items: center;
 	border-top: 2px solid #3F403F;
 }
+/* -------------- latest Prices */
+.latest-section {
+	border: 3px solid #3F403F;
+	padding: 0 5px 0 5px;
+	background-color: #FFDCFF;
+}
+
+/* --------------- About */
+.about {
+	border: 3px solid #3F403F;
+}
+/* -------------------------------------------- right section --------------------------------- */
 /* ------------------------------- clock element */
 .clock {
 	display: flex;
@@ -107,7 +120,7 @@
 	margin: 10px;
 	height: 23px;
 }
-/* ----------------------------- map center */
+/* ----------------------------- map center Location*/
 .map-centre{
 	border: 3px solid #3F403F;
 	background-color: #DCFFDC;
@@ -117,33 +130,19 @@
 .map-centre p{
 	margin: 0;
 }
-
+/* ------------------------- nearest Petrol Stations */
 #petrol-stations-list {
-	/* display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start; */
 	border: 3px solid #3F403F;
 	border-top: none;
 	background-color: antiquewhite;
-}
-
-.spotlight {
-	border: 3px solid #3F403F;
 }
   
 .station-item-right {
 	display: flex;
 	flex-direction: column;
-	/* align-items: flex-start;
-	justify-content: flex-start; */
-	/* margin-bottom: 10px;
-	padding: 10px; */
-	/* background-color: antiquewhite; */
 	border-radius: 3px;
 	border-top: 3px solid #3F403F;
 	padding-left: 5px;
-	
 }
   
   .station-item-right h2 {
@@ -162,16 +161,7 @@
 	background-color: antiquewhite;
 }
 
-
- /* ------------------ mouse over label styling */
-.labels{
-	border-radius: 7%;
-	background-color:rgba(252, 252, 252, 0.7);
-	height: 40px;
-	display: flex;	
-	align-items: center;
-	justify-content: center;
-}
+/* ----------------------------------------------------- Dynamic Elements -------------------------------- */
 
 /* ----------------hot key element KEEP AT BOTTOM */
 .none {
