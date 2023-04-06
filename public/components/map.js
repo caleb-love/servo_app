@@ -134,7 +134,7 @@ async function initMap() {
 			map.addListener('mouseup', updateLocationInfo)
 
 			let updateTimeout
-			map.addListener('mousemove', () => {
+			map.addListener('idle', () => {
 				clearTimeout(updateTimeout)
 				updateTimeout = setTimeout(() => {
 					const { lat, lng } = map.getCenter().toJSON()
