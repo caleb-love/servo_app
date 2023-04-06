@@ -10,18 +10,21 @@ body.dark-mode {
 	color: #f0f0f0;
   }
 
+
 .content-wrapper {
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
 	height: 100vh;
+	font-weight: 900;
 }
 
 /* ----------------------------------------------- Map -------------------------------  */
 
 #map {
 	height: 100vh;
-	border: 1px solid #3F403F;
+	border: 4px solid #3F403F;
 	margin: 5px;
+	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
  /* -------------- mouse over label styling */
@@ -60,11 +63,26 @@ body.dark-mode {
 /* --------------- spotlight */
 .spotlight-section {
 	padding: 0 5px 40px 5px;
-	border: 3px solid black;
+	border: 4px solid black;
 	display: grid;
 	grid-template-columns: 3fr 1fr;
-	background-color: #ffe4e1;
+	background-color: #f0f4f8;
 	margin: 0;
+	background: linear-gradient(-45deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+	background-size: 400% 400%;
+	animation: rainbow 15s ease infinite;
+  }
+  
+  @keyframes rainbow {
+	0% {
+	  background-position: 0% 50%;
+	}
+	50% {
+	  background-position: 100% 50%;
+	}
+	100% {
+	  background-position: 0% 50%;
+	}
 }
 
 .spotlight-section img {
@@ -76,13 +94,12 @@ body.dark-mode {
 
 /* --------------- Stats section */
 .stats-section {
-	border-left: 3px solid black;
-	border-right: 3px solid black;
-
+	border-left: 4px solid black;
+	border-right: 4px solid black;
 	padding: 10px 5px 40px 5px;
-	background-color: #fff0d5;
-	
+	background-color: #2196f3;
 }
+
 .stats-section h3, .stats-section h2{
 	margin: 3px 0;
 }
@@ -99,23 +116,75 @@ body.dark-mode {
 	border-top: 2px solid #3F403F;
 }
 
-.second-line{
-	background-color: #ffe4c4;
+.second-line {
+	background: linear-gradient(to right, #f44336, #ff9800, #ffeb3b, #4caf50, #2196f3, #9c27b0);
+	background-size: 600% 100%;
+	animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
 }
 
 /* -------------- latest Prices */
 .latest-section {
-	border: 3px solid #3F403F;
-	padding: 0 5px 0 5px;
-	background-color: #FFDCFF;
+	border: 4px solid #3F403F;
+	background-color: #f7f7f7;
+	padding: 0 15px;
+	height: 200px;
+	animation-name: map-bg;
+	animation-duration: 5s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	font-weight: 900;
+ }
+  
+  @keyframes map-bg {
+	0% {
+	  background-color: #f7f7f7;
+	}
+	50% {
+	  background-color: #2196f3;
+	}
+	100% {
+	  background-color: #f7f7f7;
+	}
+}
+
+.latest-section ul {
+	list-style: none;
+	margin-left: 0;
+  	padding-left: 0;
 }
 
 /* --------------- About */
 .about {
-	border: 3px solid #3F403F;
-	padding: 0 5px 0 5px;
+	border: 4px solid #3F403F;
+	padding: 0 5px;
 	margin: 0;
-}
+	margin-top: -19.92px;
+	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
+	background-size: 400% 400%;
+	animation: gradient 8s ease-in-out infinite alternate, pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes gradient {
+	0% {
+	  background-position: 0% 0%;
+	}
+	50% {
+	  background-position: 100% 100%;
+	}
+	100% {
+	  background-position: 0% 0%;
+	}
+  }
+
 /* -------------------------------------------- right section --------------------------------- */
 /* ------------------------------- clock element */
 .clock {
@@ -124,40 +193,98 @@ body.dark-mode {
 	justify-content: center;
     color: #3F403F;
 	height: 70px;
-	border: 3px solid #3F403F;
+	border: 4px solid #3F403F;
 	border-bottom: none;
-	background-color: #FFEDDC;
+	background: linear-gradient(to bottom, #4caf50, #4caf50 33%, #7ac74f 33%, #7ac74f 66%, #b3dc6c 66%, #b3dc6c);
+	background-size: 100% 150%;
+	background-position: bottom;
     font-size: 24px;
     font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
+	animation: pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+	0% {
+		background-position: bottom;
+	}
+	50% {
+		background-position: top;
+	}
+	100% {
+		background-position: bottom;
+	}
 }
 
 .clock img {
-	margin: 10px;
-	height: 23px;
+    margin: 10px;
+    height: 43px;
+    width: 43px;
+    animation: spin 2s linear infinite;
 }
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* ----------------------------- map center Location*/
 .map-centre{
-	border: 3px solid #3F403F;
-	background-color: #DCFFDC;
+	border: 4px solid #3F403F;
+	background-color: #f7f7f7;
 	padding: 0 15px;
 	height: 200px;
+	animation-name: map-bg;
+	animation-duration: 5s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+ }
+  
+  @keyframes map-bg {
+	0% {
+	  background-color: #f7f7f7;
+	}
+	50% {
+	  background-color: #2196f3;
+	}
+	100% {
+	  background-color: #f7f7f7;
+	}
 }
+  
 .map-centre p{
 	margin: 0;
 }
 /* ------------------------- nearest Petrol Stations */
 #petrol-stations-list {
-	border: 3px solid #3F403F;
+	border: 4px solid #3F403F;
 	border-top: none;
-	background-color: #fff0d5;
-}
+	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
+	background-size: 200% 200%;
+	animation: gradient 10s ease infinite;
+  }
+  
+  @keyframes gradient {
+	0% {
+	  background-position: 0% 0%;
+	}
+	50% {
+	  background-position: 100% 100%;
+	}
+	100% {
+	  background-position: 0% 0%;
+	}
+  }
 
 .station-item-right {
 	display: flex;
 	flex-direction: column;
 	border-radius: 3px;
-	border-top: 3px solid #3F403F;
+	border-top: 4px solid #3F403F;
 	padding: 0 0 5px 5px;
 }
   
@@ -170,17 +297,29 @@ body.dark-mode {
 	margin: 0;
 }
 
-.nearest-ps {
-	/* border-left: 3px solid #3F403F;
-	border-right: 3px solid #3F403F; */
-	
+.nearest-ps {	
 	padding: 5px 0px 20px 5px;
-	border: 3px solid #3F403F;
+	border: 4px solid #3F403F;
 	border-bottom: none;
 	margin: -19.9px 0;
-	background-color: #fff0d5;
-	
+	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
+	background-size: 200% 200%;
+	animation: gradient 10s ease infinite;
 }
+
+  
+  @keyframes gradient {
+	0% {
+	  background-position: 0% 0%;
+	}
+	50% {
+	  background-position: 100% 100%;
+	}
+	100% {
+	  background-position: 0% 0%;
+	}
+}
+	
 /*-------------------- back button */
 .back-button {
 	background: rgb(255, 255, 255, 0.9);
@@ -194,6 +333,7 @@ body.dark-mode {
 	transform: scale(1.1) perspective(1px);
 	background: rgb(237, 237, 237);
 }
+
 
 /* ----------------------------------------------------- Dynamic Elements -------------------------------- */
 
