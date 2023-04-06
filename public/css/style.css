@@ -15,6 +15,13 @@
 	color: #f0f0f0;
 }
 
+li {
+	list-style: none;
+}
+
+header {
+	align-items: right;
+}
 
 .content-wrapper {
 	display: grid;
@@ -28,9 +35,9 @@
 
 #map {
 	height: 100vh;
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	margin: 5px;
-	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+	box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 /* -------------- mouse over label styling */
@@ -74,20 +81,29 @@
 	grid-template-columns: 3fr 1fr;
 	background-color: #f0f4f8;
 	margin: 0;
-	background: linear-gradient(-45deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+	background: linear-gradient(
+		-45deg,
+		#f00,
+		#ff0,
+		#0f0,
+		#0ff,
+		#00f,
+		#f0f,
+		#f00
+	);
 	background-size: 400% 400%;
 	animation: rainbow 15s ease infinite;
-  }
-  
-  @keyframes rainbow {
+}
+
+@keyframes rainbow {
 	0% {
-	  background-position: 0% 50%;
+		background-position: 0% 50%;
 	}
 	50% {
-	  background-position: 100% 50%;
+		background-position: 100% 50%;
 	}
 	100% {
-	  background-position: 0% 50%;
+		background-position: 0% 50%;
 	}
 }
 
@@ -106,7 +122,8 @@
 	background-color: #2196f3;
 }
 
-.stats-section h3, .stats-section h2{
+.stats-section h3,
+.stats-section h2 {
 	margin: 3px 0;
 }
 .stats-list {
@@ -123,7 +140,15 @@
 }
 
 .second-line {
-	background: linear-gradient(to right, #f44336, #ff9800, #ffeb3b, #4caf50, #2196f3, #9c27b0);
+	background: linear-gradient(
+		to right,
+		#f44336,
+		#ff9800,
+		#ffeb3b,
+		#4caf50,
+		#2196f3,
+		#9c27b0
+	);
 	background-size: 600% 100%;
 	animation: gradient 10s ease infinite;
 }
@@ -139,7 +164,7 @@
 
 /* -------------- latest Prices */
 .latest-section {
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	background-color: #f7f7f7;
 	padding: 0 15px;
 	height: 200px;
@@ -148,48 +173,49 @@
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	font-weight: 900;
- }
-  
-  @keyframes map-bg {
+}
+
+@keyframes map-bg {
 	0% {
-	  background-color: #f7f7f7;
+		background-color: #f7f7f7;
 	}
 	50% {
-	  background-color: #2196f3;
+		background-color: #2196f3;
 	}
 	100% {
-	  background-color: #f7f7f7;
+		background-color: #f7f7f7;
 	}
 }
 
 .latest-section ul {
 	list-style: none;
 	margin-left: 0;
-  	padding-left: 0;
+	padding-left: 0;
 }
 
 /* --------------- About */
 .about {
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	padding: 0 5px;
 	margin: 0;
 	margin-top: -19.92px;
 	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
 	background-size: 400% 400%;
-	animation: gradient 8s ease-in-out infinite alternate, pulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes gradient {
+	animation: gradient 8s ease-in-out infinite alternate,
+		pulse 2s ease-in-out infinite;
+}
+
+@keyframes gradient {
 	0% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
 	50% {
-	  background-position: 100% 100%;
+		background-position: 100% 100%;
 	}
 	100% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
-  }
+}
 
 /* -------------------------------------------- right section --------------------------------- */
 /* ------------------------------- clock element */
@@ -199,14 +225,22 @@
 	justify-content: center;
 	color: #3f403f;
 	height: 70px;
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	border-bottom: none;
-	background: linear-gradient(to bottom, #4caf50, #4caf50 33%, #7ac74f 33%, #7ac74f 66%, #b3dc6c 66%, #b3dc6c);
+	background: linear-gradient(
+		to bottom,
+		#4caf50,
+		#4caf50 33%,
+		#7ac74f 33%,
+		#7ac74f 66%,
+		#b3dc6c 66%,
+		#b3dc6c
+	);
 	background-size: 100% 150%;
 	background-position: bottom;
-    font-size: 24px;
-    font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
-    Arial, sans-serif;
+	font-size: 24px;
+	font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
+		Arial, sans-serif;
 	animation: pulse 3s ease-in-out infinite alternate;
 }
 
@@ -223,24 +257,24 @@
 }
 
 .clock img {
-    margin: 10px;
-    height: 43px;
-    width: 43px;
-    animation: spin 2s linear infinite;
+	margin: 10px;
+	height: 43px;
+	width: 43px;
+	animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 /* ----------------------------- map center Location*/
-.map-centre{
-	border: 4px solid #3F403F;
+.map-centre {
+	border: 4px solid #3f403f;
 	background-color: #f7f7f7;
 	padding: 0 15px;
 	height: 200px;
@@ -248,49 +282,49 @@
 	animation-duration: 5s;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
- }
-  
-  @keyframes map-bg {
+}
+
+@keyframes map-bg {
 	0% {
-	  background-color: #f7f7f7;
+		background-color: #f7f7f7;
 	}
 	50% {
-	  background-color: #2196f3;
+		background-color: #2196f3;
 	}
 	100% {
-	  background-color: #f7f7f7;
+		background-color: #f7f7f7;
 	}
 }
-  
-.map-centre p{
+
+.map-centre p {
 	margin: 0;
 }
 /* ------------------------- nearest Petrol Stations */
 #petrol-stations-list {
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	border-top: none;
 	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
 	background-size: 200% 200%;
 	animation: gradient 10s ease infinite;
-  }
-  
-  @keyframes gradient {
+}
+
+@keyframes gradient {
 	0% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
 	50% {
-	  background-position: 100% 100%;
+		background-position: 100% 100%;
 	}
 	100% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
-  }
+}
 
 .station-item-right {
 	display: flex;
 	flex-direction: column;
 	border-radius: 3px;
-	border-top: 4px solid #3F403F;
+	border-top: 4px solid #3f403f;
 	padding: 0 0 5px 5px;
 }
 
@@ -303,9 +337,9 @@
 	margin: 0;
 }
 
-.nearest-ps {	
+.nearest-ps {
 	padding: 5px 0px 20px 5px;
-	border: 4px solid #3F403F;
+	border: 4px solid #3f403f;
 	border-bottom: none;
 	margin: -19.9px 0;
 	background: linear-gradient(to bottom, #f44336, #ff9800, #ffeb3b);
@@ -313,19 +347,18 @@
 	animation: gradient 10s ease infinite;
 }
 
-  
-  @keyframes gradient {
+@keyframes gradient {
 	0% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
 	50% {
-	  background-position: 100% 100%;
+		background-position: 100% 100%;
 	}
 	100% {
-	  background-position: 0% 0%;
+		background-position: 0% 0%;
 	}
 }
-	
+
 /*-------------------- back button */
 .back-button {
 	background: rgb(255, 255, 255, 0.9);
@@ -339,7 +372,6 @@
 	transform: scale(1.1) perspective(1px);
 	background: rgb(237, 237, 237);
 }
-
 
 /* ----------------------------------------------------- Dynamic Elements -------------------------------- */
 
