@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
 	res.render('index', {
 		googleApiKey: config.googleApiKey,
-		commoditiesApiKey: process.env.COMMODITIES_API_KEY,
 	})
 })
 
