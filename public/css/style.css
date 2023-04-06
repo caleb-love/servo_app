@@ -5,12 +5,12 @@
 	color: #303030;
 }
 
-body.dark-mode {
+.dark-mode {
 	background-color: #333;
 	color: #f0f0f0;
 }
 
-body.epilepsy-mode {
+.epilepsy-mode {
 	background-color: #333;
 	color: #f0f0f0;
 }
