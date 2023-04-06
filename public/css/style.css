@@ -1,14 +1,19 @@
 * {
 	/* border: 1px solid red; */
-    font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
-    Arial, sans-serif;
+	font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica,
+		Arial, sans-serif;
 	color: #303030;
 }
 
 body.dark-mode {
 	background-color: #333;
 	color: #f0f0f0;
-  }
+}
+
+body.epilepsy-mode {
+	background-color: #333;
+	color: #f0f0f0;
+}
 
 
 .content-wrapper {
@@ -27,12 +32,12 @@ body.dark-mode {
 	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
- /* -------------- mouse over label styling */
- .labels{
+/* -------------- mouse over label styling */
+.labels {
 	border-radius: 7%;
-	background-color:rgba(252, 252, 252, 0.7);
+	background-color: rgba(252, 252, 252, 0.7);
 	height: 40px;
-	display: flex;	
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
@@ -45,19 +50,19 @@ body.dark-mode {
 	margin: 10px;
 	width: fit-content;
 	box-shadow: 2px 2px 10px #868585;
-  }
-  
-  #legend h3 {
+}
+
+#legend h3 {
 	margin-top: 0;
 	margin-bottom: 0;
 	padding-bottom: 4px;
-  }
-  
-  #legend img {
+}
+
+#legend img {
 	vertical-align: middle;
 	height: 18px;
 	padding: 2px;
-  }
+}
 
 /* ------------------------------------------- Left section ----------------------------------- */
 /* --------------- spotlight */
@@ -87,7 +92,7 @@ body.dark-mode {
 
 .spotlight-section img {
 	height: 50px;
-	
+
 	padding-top: 32px;
 	padding-bottom: 10px;
 }
@@ -113,7 +118,7 @@ body.dark-mode {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-top: 2px solid #3F403F;
+	border-top: 2px solid #3f403f;
 }
 
 .second-line {
@@ -191,7 +196,7 @@ body.dark-mode {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-    color: #3F403F;
+	color: #3f403f;
 	height: 70px;
 	border: 4px solid #3F403F;
 	border-bottom: none;
@@ -287,13 +292,13 @@ body.dark-mode {
 	border-top: 4px solid #3F403F;
 	padding: 0 0 5px 5px;
 }
-  
-  .station-item-right h2 {
+
+.station-item-right h2 {
 	font-size: 18px;
 	margin: 0 0 5px 0;
 }
-  
-  .station-item-right p {
+
+.station-item-right p {
 	margin: 0;
 }
 
