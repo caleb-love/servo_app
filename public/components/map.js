@@ -326,13 +326,17 @@ refreshLink.addEventListener('click', (event) => {
 
 document.addEventListener('keyup', doc_keyUp, false)
 
-const darkModeToggle = document.querySelector('#dark-mode-toggle')
-const mapElement = document.querySelector('#map')
+const darkModeToggle = document.querySelector('#dark-mode-toggle');
+const mapElement = document.querySelector('#map');
+const sections = document.querySelectorAll('.clock, .stats-section, .about, .nearest-ps');
+
 darkModeToggle.addEventListener('click', () => {
-	document.body.classList.toggle('dark-mode')
-	if (document.body.classList.contains('dark-mode')) {
-		mapElement.classList.add('dark-mode-map')
-		map.setOptions({
+    document.body.classList.toggle('dark-mode');
+    sections.forEach(section => section.classList.toggle('dark-mode'));
+
+    if (document.body.classList.contains('dark-mode')) {
+        mapElement.classList.add('dark-mode-map');
+        map.setOptions({
 			styles: [
 				{
 					featureType: 'all',

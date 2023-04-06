@@ -5,10 +5,138 @@
 	color: #303030;
 }
 
-.dark-mode {
-	background-color: #333;
-	color: #f0f0f0;
+
+#dark-mode-toggle, #epilepsy-mode-toggle{
+	cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 10px;
+    width: 130px;
+    padding: 8px 0;
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
+    transition: 0.4s;
+	margin-bottom: 10px;
+    background-color: rgb(252, 221, 221);
+    padding: 2px 0;
+    color:  black;
+    box-shadow: 0 0 20px rgba(250, 64, 1, 0.2);
+} 
+
+#dark-mode-toggle:hover, #epilepsy-mode-toggle:hover {
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 20px rgb(245, 0, 0);
+    background-color: rgb(221, 0, 0);
 }
+
+
+.dark-mode, .dark-mode * {
+    color: #f0f0f0;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode button {
+    color: black;
+}
+
+.dark-mode .stats-section,
+.dark-mode .nearest-ps,
+.dark-mode .spotlight-section,
+.dark-mode .latest-section,
+.dark-mode .about,
+.dark-mode .clock,
+.dark-mode .map-centre,
+.dark-mode #petrol-stations-list {
+    background-color: #000;
+    color: #FFF;
+}
+
+.dark-mode .station-item,
+.dark-mode .station-item-right {
+    border-top-color: #FFF;
+}
+
+.dark-mode .spotlight-section {
+    background: linear-gradient(-45deg, #3b3b3b, #575757, #3b3b3b, #575757);
+}
+
+.dark-mode .about {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+}
+
+.dark-mode .latest-section {
+    background-color: #000;
+    animation-name: map-bg-dark;
+}
+
+@keyframes map-bg-dark {
+    0% {
+        background-color: #3b3b3b;
+    }
+    50% {
+        background-color: #575757;
+    }
+    100% {
+        background-color: #3b3b3b;
+    }
+}
+
+.dark-mode .nearest-ps {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+	color: #FFF;
+}
+
+.dark-mode .clock {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+    color: #f0f0f0;
+    animation-name: pulse-dark;
+}
+
+@keyframes pulse-dark {
+    0% {
+        background-position: bottom;
+    }
+    50% {
+        background-position: top;
+    }
+    100% {
+        background-position: bottom;
+    }
+}
+
+.dark-mode .map-centre {
+    background-color: #000;
+    color: #f0f0f0;
+    animation-name: map-bg-dark;
+}
+
+.dark-mode .nearest-ps {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+    color: #f0f0f0;
+}
+
+.dark-mode .second-line {
+    background: linear-gradient(to right, #2c2c2c, #4c4c4c, #6c6c6c, #8c8c8c, #acacac, #cccccc);
+}
+
+.dark-mode #petrol-stations-list {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+}
+
+.dark-mode .nearest-ps {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+    color: #f0f0f0;
+}
+
+.dark-mode #legend {
+    background: linear-gradient(to bottom, #3b3b3b, #575757);
+}
+
+
 
 .epilepsy-mode {
 	background-color: #333;
