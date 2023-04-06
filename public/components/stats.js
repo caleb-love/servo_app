@@ -23,7 +23,8 @@ function renderStats(owner , i){
 	if ( i % 2 == 0 ){
 		return`
 			<li>
-				<div style="background-color: #ffe4c4;" class="station-item">
+				
+				<div class="station-item second-line">
 		    		<span>${owner.owner}</span>
 					<span>${owner.count}</span>
 				</div>
