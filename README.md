@@ -13,7 +13,7 @@ The accuracy of this app is phenomenal. You will never have to worry about any s
 
 - ### Mohammed 
 
-The app is decent so far
+This is the best service station finder app ever created, it's changed my life and thousands of others
 
 - ### Simon
 
