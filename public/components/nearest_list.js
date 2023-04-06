@@ -12,7 +12,7 @@ export async function updatePetrolStationList(lat, lng, radius) {
 			const item = document.createElement('div')
 			item.classList.add('station-item-right')
             if  ( i % 2 == 0 ){ 
-                item.style.backgroundColor = '#ffe4c4'
+                item.classList.add('second-line')
             }
 			item.innerHTML = `
                 <h2>${station.name}</h2>
