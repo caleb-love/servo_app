@@ -62,7 +62,7 @@ async function initMap() {
 			map = new Map(document.getElementById('map'), {
 				zoom: 13,
 				minZoom: 10,
-				center: { lat, lng },
+				center: {lat: -33.8712, lng: 151.2046},
 			})
 
 			const infoWindow = new google.maps.InfoWindow({
@@ -71,7 +71,7 @@ async function initMap() {
 			})
 
 			const currentLocationMarker = new google.maps.Marker({
-				position: { lat, lng },
+				position: {lat: -33.8712, lng: 151.2046},
 				map: map,
 			})
 
