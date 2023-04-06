@@ -17,4 +17,4 @@ The app is decent so far
 
 - ### Simon
 
-This will show you how add to green house gases
+Locate your closet petrol station with ease. 
