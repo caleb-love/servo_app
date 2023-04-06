@@ -1,4 +1,5 @@
 # Servo App!
+![](/public/gifs/map.gif)
 ## Trello Board
 https://trello.com/b/rD2lGkiK/group-project
 
@@ -18,3 +19,15 @@ This is the best service station finder app ever created, it's changed my life a
 - ### Simon
 
 Locate your closet petrol station with ease. 
+
+## Features
+
+### Spotlight 
+Highlights random petrol stations and displays it on the map
+![](/public/gifs/spotlight.gif)
+
+### Epilepsy Mode 
+![](/public/gifs/epilepsy.gif)
+
+### Dark Mode
+![](/public/images/darkmode.png)
