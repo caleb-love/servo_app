@@ -6,28 +6,42 @@
 }
 
 
-#dark-mode-toggle, #epilepsy-mode-toggle{
-	cursor: pointer;
+#dark-mode-toggle, #epilepsy-mode-toggle {
+    cursor: pointer;
     border: 0;
     border-radius: 4px;
     font-weight: 600;
     margin: 0 10px;
     width: 130px;
     padding: 8px 0;
-    box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
     transition: 0.4s;
-	margin-bottom: 10px;
-    background-color: rgb(252, 221, 221);
-    padding: 2px 0;
-    color:  black;
-    box-shadow: 0 0 20px rgba(250, 64, 1, 0.2);
-} 
-
-#dark-mode-toggle:hover, #epilepsy-mode-toggle:hover {
-    color: rgb(255, 255, 255);
-    box-shadow: 0 0 20px rgb(245, 0, 0);
-    background-color: rgb(221, 0, 0);
+    margin-bottom: 10px;
+	color: white;
 }
+
+#dark-mode-toggle {
+    background-color: black;
+    padding: 2px 0;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+#dark-mode-toggle:hover {
+    box-shadow: 0 0 50px 10px rgba(255, 0, 0, 1);
+}
+
+#epilepsy-mode-toggle {
+    background-image: linear-gradient(45deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,48,255,1) 50%, rgba(146,33,222,1) 60%, rgba(0,0,0,1) 70%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 90%, rgba(0,0,0,1) 100%);
+    padding: 2px 0;
+    color: black;
+    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
+}
+
+#epilepsy-mode-toggle:hover {
+    color: white;
+    box-shadow: 0 0 30px rgb(0, 198, 252);
+}
+
 
 
 .dark-mode, .dark-mode * {
