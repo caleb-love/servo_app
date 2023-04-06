@@ -77,10 +77,32 @@ async function initMap() {
 
 			markers = [currentLocationMarker]
 
-			currentLocationMarker.addListener('click', () => {
-				infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
-				infoWindow.open(map, currentLocationMarker)
+			currentLocationMarker.addListener('mouseover', () => {
+				currentLocationMarker.set('label', {
+					text: 'Current Location',
+					fontWeight: 'bold',
+					className: 'labels',
+				})
 			})
+
+			currentLocationMarker.addListener('mouseout', () => {
+				currentLocationMarker.set('label', '')
+			})
+
+			// currentLocationMarker.addListener('click', () => {
+				// infoWindow.setContent(`Current Location: ${lat}, ${lng}`)
+				// infoWindow.open(map, currentLocationMarker)
+			// })
+
+			currentLocationMarker.setAnimation(google.maps.Animation.BOUNCE)
+            
+            currentLocationMarker.addListener("click", () => {
+                if (currentLocationMarker.getAnimation() !== null) {
+                    currentLocationMarker.setAnimation(null)
+				} else {
+                    currentLocationMarker.setAnimation(google.maps.Animation.BOUNCE)
+				}
+            })
 
 			function updateLocationInfo() {
 				const { lat, lng } = map.getCenter().toJSON()
