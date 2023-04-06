@@ -2,7 +2,7 @@ import { fetchStationsInBound, fetchRandom } from '../servo_api.js'
 import { updatePetrolStationList } from './nearest_list.js'
 
 let map
-// let markers // 
+let markers
 
 const latElement = document.querySelector('.lat')
 const lngElement = document.querySelector('.lng')
@@ -62,7 +62,7 @@ async function initMap() {
 			map = new Map(document.getElementById('map'), {
 				zoom: 13,
 				minZoom: 10,
-				center: {lat: -33.8712, lng: 151.2046},
+				center: { lat, lng },
 			})
 
 			const infoWindow = new google.maps.InfoWindow({
@@ -71,11 +71,11 @@ async function initMap() {
 			})
 
 			const currentLocationMarker = new google.maps.Marker({
-				position: {lat: -33.8712, lng: 151.2046},
+				position: { lat, lng },
 				map: map,
 			})
 
-			// markers = [currentLocationMarker]
+			markers = [currentLocationMarker]
 
 			currentLocationMarker.addListener('mouseover', () => {
 				currentLocationMarker.set('label', {
@@ -156,7 +156,6 @@ async function initMap() {
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then((res) => {
-						// setMapOnAll(null)
 						res.forEach((station) => {
 							if (
 								!displayedStations.some(
@@ -179,7 +178,7 @@ async function initMap() {
 									icon,
 									label: '',
 								})
-								// markers.push(marker)
+								markers.push(marker)
 
 								marker.addListener('click', () => {
 									infoWindow.setContent(
@@ -207,10 +206,6 @@ async function initMap() {
 							}
 						})
 					})
-					// .then(res => {
-					// 	setMapOnAll(map)
-					// 	// console.log(markers)
-					// })
 					.then((res) => {
 						displayedStations.forEach((station) => {
 							if (
@@ -258,11 +253,11 @@ async function initMap() {
 	}
 }
 
-// function setMapOnAll(map) {
-// 	for (let i = 0; i < markers.length; i++) {
-// 		markers[i].setMap(map)
-// 	}
-// }
+function setMapOnAll(map) {
+	for (let i = 0; i < markers.length; i++) {
+		markers[i].setMap(map)
+	}
+}
 
 function getRandomStation() {
 	fetchRandom().then(
@@ -331,17 +326,13 @@ refreshLink.addEventListener('click', (event) => {
 
 document.addEventListener('keyup', doc_keyUp, false)
 
-const darkModeToggle = document.querySelector('#dark-mode-toggle');
-const mapElement = document.querySelector('#map');
-const sections = document.querySelectorAll('.clock, .stats-section, .about, .nearest-ps');
-
+const darkModeToggle = document.querySelector('#dark-mode-toggle')
+const mapElement = document.querySelector('#map')
 darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    sections.forEach(section => section.classList.toggle('dark-mode'));
-
-    if (document.body.classList.contains('dark-mode')) {
-        mapElement.classList.add('dark-mode-map');
-        map.setOptions({
+	document.body.classList.toggle('dark-mode')
+	if (document.body.classList.contains('dark-mode')) {
+		mapElement.classList.add('dark-mode-map')
+		map.setOptions({
 			styles: [
 				{
 					featureType: 'all',
