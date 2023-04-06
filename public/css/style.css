@@ -150,6 +150,11 @@
     background: linear-gradient(to bottom, #3b3b3b, #575757);
 }
 
+@media only screen and (max-width: 768px) {
+	aside {
+	  display: none;
+	}
+  }
 
 
 .epilepsy-mode {
