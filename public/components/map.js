@@ -2,7 +2,7 @@ import { fetchStationsInBound, fetchRandom } from '../servo_api.js'
 import { updatePetrolStationList } from './nearest_list.js'
 
 let map
-let markers
+// let markers // 
 
 const latElement = document.querySelector('.lat')
 const lngElement = document.querySelector('.lng')
@@ -75,7 +75,7 @@ async function initMap() {
 				map: map,
 			})
 
-			markers = [currentLocationMarker]
+			// markers = [currentLocationMarker]
 
 			currentLocationMarker.addListener('mouseover', () => {
 				currentLocationMarker.set('label', {
@@ -156,6 +156,7 @@ async function initMap() {
 
 				fetchStationsInBound(southLat, northLat, westLng, eastLng)
 					.then((res) => {
+						// setMapOnAll(null)
 						res.forEach((station) => {
 							if (
 								!displayedStations.some(
@@ -178,7 +179,7 @@ async function initMap() {
 									icon,
 									label: '',
 								})
-								markers.push(marker)
+								// markers.push(marker)
 
 								marker.addListener('click', () => {
 									infoWindow.setContent(
@@ -206,6 +207,10 @@ async function initMap() {
 							}
 						})
 					})
+					// .then(res => {
+					// 	setMapOnAll(map)
+					// 	// console.log(markers)
+					// })
 					.then((res) => {
 						displayedStations.forEach((station) => {
 							if (
@@ -253,11 +258,11 @@ async function initMap() {
 	}
 }
 
-function setMapOnAll(map) {
-	for (let i = 0; i < markers.length; i++) {
-		markers[i].setMap(map)
-	}
-}
+// function setMapOnAll(map) {
+// 	for (let i = 0; i < markers.length; i++) {
+// 		markers[i].setMap(map)
+// 	}
+// }
 
 function getRandomStation() {
 	fetchRandom().then(
