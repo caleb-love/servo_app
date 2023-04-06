@@ -111,6 +111,15 @@ async function initMap() {
 
 			map.addListener('mouseup', updateLocationInfo)
 
+			let updateTimeout
+			map.addListener('mousemove', () => {
+				clearTimeout(updateTimeout)
+				updateTimeout = setTimeout(() => {
+					const { lat, lng } = map.getCenter().toJSON()
+					updatePetrolStationList(lat, lng, 5)
+				}, 500)
+			})
+
 			let displayedStations = []
 
 			map.addListener('idle', () => {
