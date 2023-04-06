@@ -176,6 +176,19 @@
 	background-color: #fff0d5;
 	
 }
+/*-------------------- back button */
+.back-button {
+	background: rgb(255, 255, 255, 0.9);
+	padding: 10px;
+	margin: 12px;
+	box-shadow: 2px 2px 10px #868585;
+	border: none;
+}
+
+.back-button:hover {
+	transform: scale(1.1) perspective(1px);
+	background: rgb(237, 237, 237);
+}
 
 /* ----------------------------------------------------- Dynamic Elements -------------------------------- */
 

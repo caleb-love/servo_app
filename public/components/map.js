@@ -225,7 +225,7 @@ async function initMap() {
 			const backButton = document.createElement('button')
 			backButton.textContent = 'Current Location'
 			backButton.classList.add('back-button')
-			map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+			map.controls[google.maps.ControlPosition.LEFT_TOP].push(
 				backButton
 			)
 
