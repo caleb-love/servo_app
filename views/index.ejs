@@ -1,173 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Servo App</title>
-		<link rel="stylesheet" href="/css/style.css" />
-		<script type="module" src="./client.js"></script>
-		<link
-			rel="shortcut icon"
-			type="image/png"
-			href="https://i.imgur.com/aygaNKd.png"
-		/>
-	</head>
-	<body>
-		<header>
-			
-			<div class="header-right">
-				<ul>
-				<li>
-					<button id="dark-mode-toggle">Dark Mode</button>
-				</li>
-				<li>
-					<button id="epilepsy-mode-toggle">Epilepsy Mode</button>
-				</li>
-				</ul>
-			</div>
-			<div class="header-left">
-				<h1>Servo_app</h1>
-			</div>
-		</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servo App</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="module" src="./client.js"></script>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://i.imgur.com/aygaNKd.png"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-right">
+        <ul>
+          <li>
+            <button id="dark-mode-toggle">Dark Mode</button>
+          </li>
+          <li>
+            <button id="party-mode-toggle">Party Mode</button>
+          </li>
+        </ul>
+      </div>
+      <div class="header-left">
+        <h1>Servo_app</h1>
+      </div>
+    </header>
 
-		<div class="content-wrapper">
-			<aside class="left-sidebar">
-				<section class="spotlight-section">
-					<h2>Spotlight</h2>
-					<img src="" alt="" />
-					<div id="station-info"></div>
-					<a href="#" id="refresh-link">Refresh</a>
-				</section>
+    <div class="content-wrapper">
+      <aside class="left-sidebar">
+        <section class="spotlight-section">
+          <h2>Spotlight</h2>
+          <img src="" alt="" />
+          <div id="station-info"></div>
+          <a href="#" id="refresh-link">Refresh</a>
+        </section>
 
-				<section class="stats-section">
-					<h2>Stats</h2>
-					<h3>
-						total stations: <span class="total-stations"></span>
-					</h3>
-					<h3>total owners: <span class="total-owners"></span></h3>
-					<ul class="stats-list"></ul>
-				</section>
+        <section class="stats-section">
+          <h2>Stats</h2>
+          <h3>total stations: <span class="total-stations"></span></h3>
+          <h3>total owners: <span class="total-owners"></span></h3>
+          <ul class="stats-list"></ul>
+        </section>
 
-				<section class="latest-section">
-					<h2>Latest Prices</h2>
-					<p>Current date: <span id="current-date"></span></p>
-					<ul>
-						<li>
-							<span>WTI crude oil:</span>
-							<span id="wti-price"></span>
-						</li>
-						<li>
-							<span>Brent crude oil:</span>
-							<span id="brent-price"></span>
-						</li>
-						<li>
-							<span>Natural gas:</span>
-							<span id="natgas-price"></span>
-						</li>
-					</ul>
-				</section>
+        <section class="latest-section">
+          <h2>Latest Prices</h2>
+          <p>Current date: <span id="current-date"></span></p>
+          <ul>
+            <li>
+              <span>WTI crude oil:</span>
+              <span id="wti-price"></span>
+            </li>
+            <li>
+              <span>Brent crude oil:</span>
+              <span id="brent-price"></span>
+            </li>
+            <li>
+              <span>Natural gas:</span>
+              <span id="natgas-price"></span>
+            </li>
+          </ul>
+        </section>
 
-				<section class="about">
-					<h2>About</h2>
-					<h1>
-						Team:
-						<a href="https://github.com/caleb-love/servo_app"
-							>initToWinIt</a
-						>
-					</h1>
-					<ul>
-						<li>
-							<a href="https://github.com/caleb-love">Caleb</a>
-						</li>
-						<li>
-							<a href="https://github.com/ta5one">Mohammed</a>
-						</li>
-						<li><a href="https://github.com/pik-nik">Nikki</a></li>
-						<li>
-							<a href="https://github.com/Squshedfrog">Simon</a>
-						</li>
-					</ul>
-					<footer>&copy; 2023 initToWinIt</footer>
-				</section>
-			</aside>
+        <section class="about">
+          <h2>About</h2>
+          <h1>
+            Team:
+            <a href="https://github.com/caleb-love/servo_app">initToWinIt</a>
+          </h1>
+          <ul>
+            <li>
+              <a href="https://github.com/caleb-love">Caleb</a>
+            </li>
+            <li>
+              <a href="https://github.com/ta5one">Mohammed</a>
+            </li>
+            <li><a href="https://github.com/pik-nik">Nikki</a></li>
+            <li>
+              <a href="https://github.com/Squshedfrog">Simon</a>
+            </li>
+          </ul>
+          <footer>&copy; 2023 initToWinIt</footer>
+        </section>
+      </aside>
 
-			<main>
-				<div id="map"></div>
-				<div id="legend"><h3>Legend</h3></div>
-			</main>
+      <main>
+        <div id="map"></div>
+        <div id="legend"><h3>Legend</h3></div>
+      </main>
 
-			<aside class="right-sidebar">
-				<section class="clock">
-					<img src="https://i.imgur.com/aygaNKd.png" alt="" /><span
-						class="time"
-					></span>
-				</section>
+      <aside class="right-sidebar">
+        <section class="clock">
+          <img src="https://i.imgur.com/aygaNKd.png" alt="" /><span
+            class="time"
+          ></span>
+        </section>
 
-				<section class="map-centre">
-					<h2>Map Center Location</h2>
-					<p>lat: <span class="lat"></span></p>
-					<p>lng: <span class="lng"></span></p>
-					<h4 class="map-loc"></h4>
-				</section>
-				<div class="nearest-ps">
-					<h2>Nearest Petrol Stations</h2>
-					<p>(within 5km radius of centre)</p>
-				</div>
-				<section id="petrol-stations-list"></section>
-			</aside>
-		</div>
+        <section class="map-centre">
+          <h2>Map Center Location</h2>
+          <p>lat: <span class="lat"></span></p>
+          <p>lng: <span class="lng"></span></p>
+          <h4 class="map-loc"></h4>
+        </section>
+        <div class="nearest-ps">
+          <h2>Nearest Petrol Stations</h2>
+          <p>(within 5km radius of centre)</p>
+        </div>
+        <section id="petrol-stations-list"></section>
+      </aside>
+    </div>
 
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script>
-			;((g) => {
-				var h,
-					a,
-					k,
-					p = 'The Google Maps JavaScript API',
-					c = 'google',
-					l = 'importLibrary',
-					q = '__ib__',
-					m = document,
-					b = window
-				b = b[c] || (b[c] = {})
-				var d = b.maps || (b.maps = {}),
-					r = new Set(),
-					e = new URLSearchParams(),
-					u = () =>
-						h ||
-						(h = new Promise(async (f, n) => {
-							await (a = m.createElement('script'))
-							e.set('libraries', [...r] + '')
-							for (k in g)
-								e.set(
-									k.replace(
-										/[A-Z]/g,
-										(t) => '_' + t[0].toLowerCase()
-									),
-									g[k]
-								)
-							e.set('callback', c + '.maps.' + q)
-							a.src = `https://maps.${c}apis.com/maps/api/js?` + e
-							d[q] = f
-							a.onerror = () =>
-								(h = n(Error(p + ' could not load.')))
-							a.nonce =
-								m.querySelector('script[nonce]')?.nonce || ''
-							m.head.append(a)
-						}))
-				d[l]
-					? console.warn(p + ' only loads once. Ignoring:', g)
-					: (d[l] = (f, ...n) =>
-							r.add(f) && u().then(() => d[l](f, ...n)))
-			})({
-				key: '<%=googleApiKey%>',
-			})
-		</script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
-		<script src="/components/clock.js"></script>
-		<script src="/components/stats.js"></script>
-		<script type="module" src="/components/map.js"></script>
-		<script type="module" src="/components/commodities.js"></script>
-	</body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      ;(g => {
+        var h,
+          a,
+          k,
+          p = "The Google Maps JavaScript API",
+          c = "google",
+          l = "importLibrary",
+          q = "__ib__",
+          m = document,
+          b = window
+        b = b[c] || (b[c] = {})
+        var d = b.maps || (b.maps = {}),
+          r = new Set(),
+          e = new URLSearchParams(),
+          u = () =>
+            h ||
+            (h = new Promise(async (f, n) => {
+              await (a = m.createElement("script"))
+              e.set("libraries", [...r] + "")
+              for (k in g)
+                e.set(
+                  k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()),
+                  g[k]
+                )
+              e.set("callback", c + ".maps." + q)
+              a.src = `https://maps.${c}apis.com/maps/api/js?` + e
+              d[q] = f
+              a.onerror = () => (h = n(Error(p + " could not load.")))
+              a.nonce = m.querySelector("script[nonce]")?.nonce || ""
+              m.head.append(a)
+            }))
+        d[l]
+          ? console.warn(p + " only loads once. Ignoring:", g)
+          : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)))
+      })({
+        key: "<%=googleApiKey%>",
+      })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+    <script src="/components/clock.js"></script>
+    <script src="/components/stats.js"></script>
+    <script type="module" src="/components/map.js"></script>
+    <script type="module" src="/components/commodities.js"></script>
+  </body>
 </html>
